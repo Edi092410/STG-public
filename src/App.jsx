@@ -1,5 +1,5 @@
 function App() {
-  return <div>Eba test</div>;
+  return <div>STG site</div>;
 }
 
 export default App;
