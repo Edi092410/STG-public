@@ -1,5 +1,5 @@
 function App() {
-  return <div>Git test shuu hu number 2</div>;
+  return <div>Eba test</div>;
 }
 
 export default App;
