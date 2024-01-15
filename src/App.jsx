@@ -1,5 +1,6 @@
+import { Header } from "./hoc/layouts/Header/Header";
 function App() {
-  return <div>STG site</div>;
+  return <Header />;
 }
 
 export default App;
