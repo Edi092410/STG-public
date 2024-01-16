@@ -1,6 +1,10 @@
-import { Header } from "./hoc/layouts/Header/Header";
+import { AppRoutes } from "./routes/AppRoutes";
 function App() {
-  return <Header />;
+  return (
+    <div className=" text-sm">
+      <AppRoutes />
+    </div>
+  );
 }
 
 export default App;

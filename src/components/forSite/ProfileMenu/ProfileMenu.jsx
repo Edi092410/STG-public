@@ -1,14 +1,12 @@
 import React from "react";
-import { PopUp } from "../../common/PopUp/PopUp";
+import { DropDown } from "../../common/DropDown/DropDown";
 import { ProfileTrigger } from "./ProfileTrigger";
 import { List } from "../../common/List/List";
 export const ProfileMenu = () => {
   return (
-    <PopUp
+    <DropDown
       trigger={<ProfileTrigger name={"Test"} />}
       location={"bottom center left"}
-    >
-
-    </PopUp>
+    ></DropDown>
   );
 };

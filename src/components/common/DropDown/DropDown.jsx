@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import useOutsideClick from "../../../utils/hooks/useOutsideClick";
 
-export const PopUp = ({
+export const DropDown = ({
   trigger,
   children,
   onclick,
