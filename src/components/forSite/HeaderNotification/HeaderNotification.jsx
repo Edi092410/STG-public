@@ -1,4 +1,3 @@
-import React from "react";
 import { DropDown } from "../../common/DropDown/DropDown";
 import { NotificationIcon } from "../../../assets/icons/NotificationIcon";
 import { NotificationBadge } from "../../ui/NotificationBadge/NotificationBadge";
@@ -43,8 +42,8 @@ export const HeaderNotification = () => {
       trigger={
         <NotificationBadge
           Badge={NotificationIcon}
-          badgeHeight={28}
-          badgeWidth={28}
+          badgeHeight={25}
+          badgeWidth={25}
           counterHeight={18}
           counterWidth={18}
           count={3}

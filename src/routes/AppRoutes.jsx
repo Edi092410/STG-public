@@ -10,9 +10,8 @@ import { Login } from "../pages/Login/Login";
 import { MainPage } from "../pages/MainPage/MainPage";
 import { OrderList } from "../pages/OrderList/OrderList";
 import { PaymentList } from "../pages/PaymentList/PaymentList";
-import { QA } from "../pages/QA/QA";
 import { Register } from "../pages/Register/Register";
-import { Service } from "../pages/Service/Service";
+import { UserGuide } from "../pages/UserGuide/UserGuide";
 
 export const AppRoutes = () => {
   return (
@@ -26,12 +25,18 @@ export const AppRoutes = () => {
         <Route path="changePassword" element={<ChangePassword />} />
         <Route path="forgetPassword" element={<ForgetPassword />} />
         <Route path="register" element={<Register />} />
-        <Route path="service" element={<Service />}>
-          <Route index element={<QA />} />
-          <Route path="list" element={<OrderList />} />
-          <Route path="payment" element={<PaymentList />} />
-        </Route>
+        <Route path="list" element={<OrderList />} />
+        <Route path="payment" element={<PaymentList />} />
+        <Route path="userGuide" element={<UserGuide />} />
       </Route>
+      <Route
+        path="*"
+        element={
+          <div className="w-screen h-screen flex items-center justify-center text-2xl">
+            404 Not Found
+          </div>
+        }
+      />
     </Routes>
   );
 };

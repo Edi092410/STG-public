@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import useOutsideClick from "../../../utils/hooks/useOutsideClick";
 
 export const DropDown = ({
@@ -102,7 +102,9 @@ export const DropDown = ({
     <div className="relative inline-block">
       <div
         ref={triggerRef}
-        className={`${modal ? "pointer-events-none" : "cursor-pointer"}`}
+        className={`h-full flex items-center ${
+          modal ? "pointer-events-none" : "cursor-pointer"
+        }`}
         onClick={() => {
           setModal(true);
           if (onclick) {
@@ -113,7 +115,7 @@ export const DropDown = ({
         {trigger}
       </div>
       <div
-        className="absolute"
+        className="absolute animate-slideDownAndFade"
         ref={menuRef}
         style={{
           zIndex: modal ? 1 : 0,

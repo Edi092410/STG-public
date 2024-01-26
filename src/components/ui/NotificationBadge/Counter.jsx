@@ -1,4 +1,3 @@
-import React from "react";
 
 export const Counter = ({ count, height, width }) => {
   return (
