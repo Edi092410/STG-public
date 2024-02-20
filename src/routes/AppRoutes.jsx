@@ -11,7 +11,7 @@ import { MainPage } from "../pages/MainPage/MainPage";
 import { OrderList } from "../pages/OrderList/OrderList";
 import { PaymentList } from "../pages/PaymentList/PaymentList";
 import { Register } from "../pages/Register/Register";
-import { UserGuide } from "../pages/UserGuide/UserGuide";
+import { RegisterFiscus } from "../pages/RegisterFiscus/RegisterFiscus";
 
 export const AppRoutes = () => {
   return (
@@ -19,15 +19,15 @@ export const AppRoutes = () => {
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<MainPage />} />
         <Route path="notifications" element={<AllNotification />} />
-        <Route path="article" element={<Article />} />
         <Route path="course" element={<Course />} />
+        <Route path="article" element={<Article />} />
         <Route path="login" element={<Login />} />
         <Route path="changePassword" element={<ChangePassword />} />
         <Route path="forgetPassword" element={<ForgetPassword />} />
         <Route path="register" element={<Register />} />
-        <Route path="list" element={<OrderList />} />
+        <Route path="registration" element={<RegisterFiscus />} />
+        <Route path="service" element={<OrderList />} />
         <Route path="payment" element={<PaymentList />} />
-        <Route path="userGuide" element={<UserGuide />} />
       </Route>
       <Route
         path="*"

@@ -1,14 +1,10 @@
-import { AppBar } from "../../../components/common/AppBar/AppBar";
-import Navbar from "../../../components/forSite/Navbar/Navbar";
 import { NavData } from "./Data/NavData";
-import { CompanyData } from "./Data/CompanyData";
 import { Menu, Layout, Dropdown, Card, Badge, ConfigProvider } from "antd";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../../../components/ui/Logo/Logo";
 import { ProfileIcon } from "../../../assets/icons/ProfileIcon";
 import { NotificationIcon } from "../../../assets/icons/NotificationIcon";
-import { Select1 } from "../../../components/ui/Select/Select";
 import { NotificationData } from "../../../components/forSite/HeaderNotification/Data/NotificationData";
 import { NotificationElement } from "../../../components/forSite/HeaderNotification/NotificationElement";
 import { List } from "../../../components/common/List/List";
@@ -20,37 +16,7 @@ export const Header1 = () => {
   const handleClick = (e) => {
     setCurrent(e.key);
   };
-  const renderMenuItems = (data) => {
-    return data.map((item) => {
-      if (item.subLinks) {
-        return (
-          <Menu.SubMenu key={item.key} title={item.name}>
-            {item.subLinks.map((sublink) => (
-              <Menu.Item
-                key={sublink.key}
-                style={{ display: "flex", alignItems: "center" }}
-                // className=" flex item"
-                icon={
-                  <img
-                    src={sublink.image}
-                    alt={sublink.name}
-                    style={{ height: "100%" }}
-                  />
-                }
-              >
-                <NavLink to={sublink.to}>{sublink.name}</NavLink>
-              </Menu.Item>
-            ))}
-          </Menu.SubMenu>
-        );
-      }
-      return (
-        <Menu.Item key={item.key}>
-          <NavLink to={item.to}>{item.name}</NavLink>
-        </Menu.Item>
-      );
-    });
-  };
+
   return (
     <Header
       style={{
@@ -62,14 +28,20 @@ export const Header1 = () => {
       }}
       className=" just"
     >
-      <Logo text={"Санхүүгийн Тооцоолох Групп"} width={200} />
+      <Logo />
       <Menu
         mode="horizontal"
         onClick={handleClick}
         selectedKeys={[current]}
         style={{ backgroundColor: "transparent", color: "white" }}
       >
-        {renderMenuItems(NavData())}
+        {NavData().map((item) => {
+          return (
+            <Menu.Item key={item.key}>
+              <NavLink to={item.to}>{item.name}</NavLink>
+            </Menu.Item>
+          );
+        })}
       </Menu>
       <div className="flex items-center gap-x-4 h-fit">
         <Dropdown
@@ -82,7 +54,7 @@ export const Header1 = () => {
               }}
             >
               <List
-                lists={NotificationData().slice(0, 10)}
+                lists={NotificationData().slice(0, 5)}
                 ListElement={NotificationElement}
                 liclassName={` mb-4`}
               />
@@ -95,29 +67,6 @@ export const Header1 = () => {
             </div>
           </Badge>
         </Dropdown>
-        <ConfigProvider
-          theme={{
-            components: {
-              Select: {
-                colorBgContainer: "transparent",
-                colorBorder: "transparent",
-                // colorText: "#FFF",
-              },
-              Dropdown: {
-                colorText: "#FFF",
-              },
-            },
-          }}
-        >
-          <Select1
-            data={CompanyData()}
-            label="name"
-            value="customerId"
-            defaultValue={"f50e-fcc6-49f4-b5sdkfj-566541skdj"}
-            size={"small"}
-            width={200}
-          />
-        </ConfigProvider>
         <Dropdown
           overlay={
             <Card>

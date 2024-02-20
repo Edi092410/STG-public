@@ -1,5 +1,3 @@
-import list from "../../../../assets/images/NavList/service.png";
-import course from "../../../../assets/images/NavList/course.png";
 export const NavData = () => {
   return [
     {
@@ -10,20 +8,7 @@ export const NavData = () => {
     {
       name: "Харилцагчийн үйлчилгээ",
       key: "service",
-      subLinks: [
-        {
-          name: "Үйлчилгээ",
-          to: "/list",
-          key: "list",
-          image: list,
-        },
-        {
-          name: "Сургалт",
-          to: "/userGuide",
-          key: "userGuide",
-          image: course,
-        },
-      ],
+      to: "/service",
     },
     {
       name: "Сургалт",
