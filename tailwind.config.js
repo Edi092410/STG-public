@@ -24,6 +24,9 @@ export default {
         slideDownAndFade:
           "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
+      aspectRatio: {
+        "1024/768": "1024 / 768",
+      },
     },
   },
   plugins: [],

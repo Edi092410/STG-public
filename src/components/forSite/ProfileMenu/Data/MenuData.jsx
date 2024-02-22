@@ -1,9 +1,9 @@
 export const MenuData = () => {
   return [
     {
-      name: "Нууц үг өөрчлөх",
-      to: "settings/privacy",
-      key: "privacy",
+      name: "Хянах самбар",
+      to: "/dashboard",
+      key: "dashboard",
     },
   ];
 };

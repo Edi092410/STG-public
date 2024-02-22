@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { SharedLayout } from "../hoc/layouts/SharedLayout/SharedLayout";
 import { AllNotification } from "../pages/AllNotification/AllNotification";
-import { Article } from "../pages/Article/Article";
 import { ChangePassword } from "../pages/ChangePassword/ChangePassword";
 import { Course } from "../pages/Course/Course";
 import { ForgetPassword } from "../pages/ForgetPassword/ForgetPassword";
@@ -12,6 +11,8 @@ import { OrderList } from "../pages/OrderList/OrderList";
 import { PaymentList } from "../pages/PaymentList/PaymentList";
 import { Register } from "../pages/Register/Register";
 import { RegisterFiscus } from "../pages/RegisterFiscus/RegisterFiscus";
+import { Dashboard } from "../pages/Dashboard/Dashboard";
+import { Summary } from "../pages/Summary/Summary";
 
 export const AppRoutes = () => {
   return (
@@ -19,15 +20,17 @@ export const AppRoutes = () => {
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<MainPage />} />
         <Route path="notifications" element={<AllNotification />} />
-        <Route path="course" element={<Course />} />
-        <Route path="article" element={<Article />} />
         <Route path="login" element={<Login />} />
         <Route path="changePassword" element={<ChangePassword />} />
         <Route path="forgetPassword" element={<ForgetPassword />} />
         <Route path="register" element={<Register />} />
         <Route path="registration" element={<RegisterFiscus />} />
-        <Route path="service" element={<OrderList />} />
-        <Route path="payment" element={<PaymentList />} />
+        <Route path="dashboard" element={<Dashboard />}>
+          <Route index element={<Summary />} />
+          <Route path="service" element={<OrderList />} />
+          <Route path="payment" element={<PaymentList />} />
+          <Route path="course" element={<Course />} />
+        </Route>
       </Route>
       <Route
         path="*"

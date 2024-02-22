@@ -22,27 +22,13 @@ export const Header1 = () => {
       style={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         color: "white",
         backgroundColor: "#1D3049",
       }}
       className=" just"
     >
       <Logo />
-      <Menu
-        mode="horizontal"
-        onClick={handleClick}
-        selectedKeys={[current]}
-        style={{ backgroundColor: "transparent", color: "white" }}
-      >
-        {NavData().map((item) => {
-          return (
-            <Menu.Item key={item.key}>
-              <NavLink to={item.to}>{item.name}</NavLink>
-            </Menu.Item>
-          );
-        })}
-      </Menu>
       <div className="flex items-center gap-x-4 h-fit">
         <Dropdown
           overlay={
