@@ -1,7 +1,4 @@
-import { NavData } from "./Data/NavData";
-import { Menu, Layout, Dropdown, Card, Badge, ConfigProvider } from "antd";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Layout, Dropdown, Card, Badge } from "antd";
 import { Logo } from "../../../components/ui/Logo/Logo";
 import { ProfileIcon } from "../../../assets/icons/ProfileIcon";
 import { NotificationIcon } from "../../../assets/icons/NotificationIcon";
@@ -12,11 +9,7 @@ import { Element } from "../../../components/forSite/ProfileMenu/Element";
 import { MenuData } from "../../../components/forSite/ProfileMenu/Data/MenuData";
 const { Header } = Layout;
 export const Header1 = () => {
-  const [current, setCurrent] = useState("product");
-  const handleClick = (e) => {
-    setCurrent(e.key);
-  };
-
+  
   return (
     <Header
       style={{

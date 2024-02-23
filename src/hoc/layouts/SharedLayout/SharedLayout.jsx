@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Header1 } from "../Header/Header1";
-import { Footer } from "../Footer/Footer";
+import { Footer1 } from "../Footer1/Footer1";
 export const SharedLayout = () => {
   return (
     <div className="min-h-screen w-screen grid grid-rows-[auto,1fr,auto]">
@@ -8,7 +8,7 @@ export const SharedLayout = () => {
       <div className="lg:mx-[10%]">
         <Outlet />
       </div>
-      <Footer />
+      <Footer1 />
     </div>
   );
 };

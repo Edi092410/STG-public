@@ -1,6 +1,7 @@
 import React from "react";
 import { Breadcrumb, Button, Layout, Menu, theme } from "antd";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { Breadcrumb1 } from "../../components/common/Breadcrumb1/Breadcrumb1";
 const { Content, Sider } = Layout;
 export const Dashboard = () => {
   const location = useLocation();
@@ -56,11 +57,11 @@ export const Dashboard = () => {
 
   return (
     <Layout className="h-full w-full bg-transparent">
-      <Breadcrumb
+      <Breadcrumb1
         items={location.pathname === "/dashboard" ? firstItems : secondItems}
-        className="my-4"
+        className="my-4 "
       />
-      <Content style={{ backgroundColor: "transparent" }}>
+      <Content style={{ backgroundColor: "transparent", marginBottom: 16 }}>
         <Layout className="h-full">
           <Sider width={"20%"} style={{ backgroundColor: colorBgContainer }}>
             <div className="h-full">
