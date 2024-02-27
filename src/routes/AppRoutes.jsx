@@ -8,7 +8,7 @@ import { ForgetPassword } from "../pages/ForgetPassword/ForgetPassword";
 import { Login } from "../pages/Login/Login";
 import { MainPage } from "../pages/MainPage/MainPage";
 import { OrderList } from "../pages/OrderList/OrderList";
-import { PaymentList } from "../pages/PaymentList/PaymentList";
+import { PaymentPage } from "../pages/PaymentPage/PaymentPage";
 import { Register } from "../pages/Register/Register";
 import { RegisterFiscus } from "../pages/RegisterFiscus/RegisterFiscus";
 import { Dashboard } from "../pages/Dashboard/Dashboard";
@@ -28,7 +28,7 @@ export const AppRoutes = () => {
         <Route path="dashboard" element={<Dashboard />}>
           <Route index element={<Summary />} />
           <Route path="service" element={<OrderList />} />
-          <Route path="payment" element={<PaymentList />} />
+          <Route path="payment" element={<PaymentPage />} />
           <Route path="course" element={<Course />} />
         </Route>
       </Route>
