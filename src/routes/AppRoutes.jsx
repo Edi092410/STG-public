@@ -13,6 +13,7 @@ import { Register } from "../pages/Register/Register";
 import { RegisterFiscus } from "../pages/RegisterFiscus/RegisterFiscus";
 import { Dashboard } from "../pages/Dashboard/Dashboard";
 import { Summary } from "../pages/Summary/Summary";
+import { CourseWatch } from "../pages/CourseWatch/CourseWatch";
 
 export const AppRoutes = () => {
   return (
@@ -30,6 +31,7 @@ export const AppRoutes = () => {
           <Route path="service" element={<OrderList />} />
           <Route path="payment" element={<PaymentPage />} />
           <Route path="course" element={<Course />} />
+          <Route path="courseWatch/:id" element={<CourseWatch />} />
         </Route>
       </Route>
       <Route

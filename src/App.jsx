@@ -1,6 +1,6 @@
 import { AppRoutes } from "./routes/AppRoutes";
 import { ConfigProvider } from "antd";
-import { NavList } from "./components/common/NavList/NavList";
+import { CourseElement } from "./pages/Course/CourseElement/CourseElement";
 
 function App() {
   return (
