@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GetData } from "../../backend/axios/AxiosAdmin";
+import { VideoList } from "./VideoList/VideoList";
 export const CourseWatch = () => {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState({});
@@ -23,14 +24,14 @@ export const CourseWatch = () => {
     getVideo(); // Invoke the getVideo function
   }, []); // Pass an empty dependency array to run the effect only once on mount
   return (
-    <div className=" p-4">
+    <div className=" p-4 ">
       <div className=" flex w-full border border-slate-300 rounded-lg p-5">
-        <div className="w-full">
+        <div className={`${videos.length > 1 ? "w-[75%]" : "w-full"}  mr-5`}>
           <video
             controls
             src={selectedVideo?.video}
             poster={selectedVideo?.thumbnail}
-            className=" rounded-2xl lg:w-[70%] w-full aspect-video bg-black mr-5"
+            className=" rounded-lg aspect-video bg-black"
             controlsList="nodownload"
           >
             Таны ашиглаж байгаа хөтөч энэ бичлэгийг дэмжихгүй байна. Өөр хөтөч
@@ -40,22 +41,17 @@ export const CourseWatch = () => {
             {selectedVideo?.title}
           </div>
         </div>
-
-        <div className="flex flex-col border border-l-slate-300 gap-y-4">
-          {videos.map((video) => (
-            <div className="flex items-center ml-5">
-              <img src={video?.thumbnail} className=" aspect-video" />
-              <div
-                className=" text-stg-color cursor-pointer"
-                onClick={() => setSelectedVideo(video)}
-              >
-                {video?.title}
-              </div>
-            </div>
-          ))}
+        <div
+          className={`${
+            videos.length > 1 ? "w-[25%]" : "hidden"
+          } relative border border-l-slate-300 border-y-0 border-r-0`}
+        >
+          <div className="absolute left-5 w-full h-full overflow-y-auto">
+            <VideoList videos={videos} setSelectedVideo={setSelectedVideo} />
+          </div>
         </div>
       </div>
-      
+      {/* <div></div> */}
     </div>
   );
 };

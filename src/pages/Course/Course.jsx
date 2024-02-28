@@ -35,6 +35,7 @@ export const Course = () => {
             intro={stripHtmlTags(video?.intro)}
             content={video?.content}
             id={video?.id}
+            date={video?.created_at}
             lessons={video.length} // bodoh
           />
         </div>

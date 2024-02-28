@@ -15,7 +15,7 @@ export const FeatureNews = () => {
       name: "bulb",
       src: "https://randomwordgenerator.com/img/picture-generator/54e7d4404f54ab14f1dc8460962e33791c3ad6e04e50744172277ed79145c0_640.jpg",
       date: "2024-01-02",
-      title: "Cable management",
+      title: "Cable management asdkfja;lsfdja;slfd asldkfj alsdkfj asldfj",
       description:
         "Cable management shuu hu. Ahiad ng cable management shuu hu. Cable management shuu hu. Ahiad ng cable management shuu hu.",
     },
@@ -30,12 +30,14 @@ export const FeatureNews = () => {
   ];
   return (
     <div className="">
-      <div className="w-full text-center font-bold text-3xl my-4">Features</div>
+      <div className="w-full text-center font-bold text-3xl my-4">
+        Мэдээ, мэдээлэл
+      </div>
       <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center">
         {items.map((item, index) => (
           <div className=" flex justify-center mb-8">
             <Card
-              style={{ width: 300 }}
+              style={{ width: 400 }}
               cover={
                 <img
                   alt={item.name}
@@ -45,13 +47,7 @@ export const FeatureNews = () => {
               }
               className=" hover:shadow-2xl transform duration-300 w-full"
             >
-              <div className=" text-gray-400">{item.date}</div>
-              <div className=" font-bold text-base">{item.title}</div>
-              <div>{item.description}</div>
-              <div className="flex cursor-pointer hover:scale-105 transform duration-200 items-center">
-                <div className="text-sky-500 mr-1">Дэлгэрэнгүй</div>
-                <RightOutlined color="#0ea5e9" className="#0ea5e9" />
-              </div>
+              <div className=" font-bold text-lg text-center">{item.title}</div>
             </Card>
           </div>
         ))}

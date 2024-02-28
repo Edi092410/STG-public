@@ -3,6 +3,7 @@ import { ProfileIcon } from "../../../assets/icons/ProfileIcon";
 import { CourseDrawer } from "../CourseDrawer/CourseDrawer";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DateResult } from "../../../utils/functions/DateResult";
 
 export const CourseElement = ({
   image,
@@ -12,6 +13,7 @@ export const CourseElement = ({
   intro,
   content,
   id,
+  date,
 }) => {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -59,7 +61,8 @@ export const CourseElement = ({
             {title}
           </div>
           <Intro />
-          <div className=" mt-auto">
+          <div className=" text-slate-400">{DateResult({ date: date })}</div>
+          <div className=" mt-auto float-right">
             <ConfigProvider
               theme={{
                 token: {
@@ -86,6 +89,7 @@ export const CourseElement = ({
         image={image}
         content={content}
         intro={intro}
+        id={id}
       />
     </>
   );

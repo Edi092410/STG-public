@@ -1,4 +1,5 @@
 import { Drawer, Button, ConfigProvider } from "antd";
+import { useNavigate } from "react-router-dom";
 export const CourseDrawer = ({
   title,
   onClose,
@@ -6,7 +7,9 @@ export const CourseDrawer = ({
   image,
   content,
   intro,
+  id,
 }) => {
+  const navigate = useNavigate();
   return (
     <Drawer title={title} onClose={onClose} open={open}>
       <img src={image} className=" aspect-video rounded-lg mb-4" />
@@ -26,7 +29,10 @@ export const CourseDrawer = ({
         >
           <Button
             className="bg-[#0074E0]"
-            //   onClick={() => navigate(`/courseWatch/${prop.id}`)}
+            onClick={() => {
+              navigate(`/dashboard/courseWatch/${id}`);
+              onClose();
+            }}
           >
             Одоо үзье
           </Button>

@@ -23,12 +23,14 @@ export const Dashboard = () => {
       key: "course",
     },
   ];
+  console.log("pathname", location.pathname);
 
   const pathname = () => {
     if (location.pathname === "/dashboard") return null;
     else if (location.pathname === "/dashboard/payment") return "Төлбөр тооцоо";
     else if (location.pathname === "/dashboard/service") return "Үйлчилгээ";
     else if (location.pathname === "/dashboard/course") return "Сургалт";
+    else return "Хичээл";
   };
   const firstItems = [
     {
@@ -51,14 +53,35 @@ export const Dashboard = () => {
     },
   ];
 
+  const thirdItem = [
+    {
+      title: <Link to={"/"}>Нүүр</Link>,
+    },
+    {
+      title: <Link to={"/dashboard"}>Хянах самбар</Link>,
+    },
+    {
+      title: <Link to={"/dashboard/course"}>Сургалт</Link>,
+    },
+    {
+      title: pathname(),
+    },
+  ];
+
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
 
   return (
     <Layout className="h-full w-full bg-transparent">
       <Breadcrumb1
-        items={location.pathname === "/dashboard" ? firstItems : secondItems}
+        items={
+          location.pathname === "/dashboard"
+            ? firstItems
+            : location.pathname.startsWith("/dashboard/courseWatch")
+            ? thirdItem
+            : secondItems
+        }
         className="my-4 "
       />
       <Content style={{ backgroundColor: "transparent", marginBottom: 16 }}>
