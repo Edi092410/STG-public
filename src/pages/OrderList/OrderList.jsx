@@ -1,23 +1,24 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { DatePicker, Table, Input, Button, Space, Checkbox } from "antd";
+import { DatePicker, Table, Select, message } from "antd";
 import { State } from "../../components/forSite/ServiceState/State";
 import { SearchProps } from "../../components/common/SearchProps/SearchProps";
 import { FilterProps } from "../../components/common/FilterProps/FilterProps";
-import { OrderData } from "./Data/OrderData";
+// import { orderData } from "./Data/orderData";
 import { DateIcon } from "../../assets/icons/DateIcon";
+import { GetDataService } from "../../backend/axios/AxiosService2";
 
 export const OrderList = () => {
   // API gaas irj bga niit data
-  // const [OrderData, setOrderData] = useState([]);
+  const [orderData, setOrderData] = useState([]);
+
+  const [selectedCompany, setSelectedCompany] = useState("");
 
   // UseContext ашиглан component refresh хийх
   // const { refresh, setRefresh } = useContext(OrderContext);
   // Loading хийх
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // const { selectedCompany } = useContext(CompanyContext);
-
-  // const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
   // const [notif, setNotif] = useState(false);
   // const [type, setType] = useState(0);
   // const [storedNumber, setStoredNumber] = useState("");
@@ -65,23 +66,21 @@ export const OrderList = () => {
 
   // useEffect(() => {
   //   const FetchData = async () => {
-  //     if (selectedCompany !== "") {
-  //       setLoading(true);
-  //       try {
-  //         const data = await GetDataWithAuthorization(
-  //           `/services/getservicelist?customerId=${selectedCompany}&startDate=${dates.start}&endDate=${dates.end}`
-  //         );
-  //         setOrderData(data.data);
-  //       } catch (err) {
-  //         // setHasError(true);
-  //         Notify({ text: err.message, success: false });
-  //       } finally {
-  //         setLoading(false);
-  //       }
+  //     setLoading(true);
+  //     try {
+  //       const response = await GetDataService(
+  //         `/services/getservicelist?customerId=${selectedCompany}&startDate=${dates.start}&endDate=${dates.end}`
+  //       );
+  //       setOrderData(response.data);
+  //     } catch (err) {
+  //       // setHasError(true);
+  //       message.error(err.message);
+  //     } finally {
+  //       setLoading(false);
   //     }
   //   };
   //   FetchData();
-  // }, [selectedCompany, refresh, dates]);
+  // }, [selectedCompany, dates]);
 
   const getStateText = (stateValue) => {
     switch (parseInt(stateValue)) {
@@ -98,11 +97,11 @@ export const OrderList = () => {
     }
   };
   const uniqueStates = Array.from(
-    new Set(OrderData().map((item) => item.state))
+    new Set(orderData.map((item) => item.state))
   ).filter((value) => value !== undefined);
 
   const uniqueUsers = Array.from(
-    new Set(OrderData().map((item) => item.servedUser))
+    new Set(orderData.map((item) => item.servedUser))
   ).filter((value) => value !== undefined);
 
   // Хүснэгтийн толгой болон бусад мэдээллүүд
@@ -196,7 +195,7 @@ export const OrderList = () => {
 
   const paginationConfig = {
     // Customize pagination here
-    total: OrderData().length, // Total number of items
+    total: orderData.length, // Total number of items
     showSizeChanger: true, // Show the "items per page" dropdown
     current: pagination.page,
     pageSize: pagination.pageSize,
@@ -212,44 +211,48 @@ export const OrderList = () => {
   };
 
   return (
-    <div>
-      <div className="flex mb-4">
-        <DatePicker
-          picker="date"
-          showToday={false}
-          placeholder="Эхлэх"
-          style={{
-            borderColor: "#E1E1E1",
-            width: "120px",
-            height: "40px",
-            color: "#1D3049",
-            marginRight: "10px",
-          }}
-          onChange={onChangeStart}
-          className="custom-datepicker"
-          suffixIcon={<DateIcon />}
-        />
-        <DatePicker
-          picker="date"
-          placeholder="Дуусах"
-          style={{
-            borderColor: "#E1E1E1",
-            width: "120px",
-            height: "40px",
-          }}
-          onChange={onChangeEnd}
-          className="custom-datepicker"
-          suffixIcon={<DateIcon />}
-        />
+    <div className=" px-[5%] my-[5vh]">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center">
+          <DatePicker
+            picker="date"
+            showToday={false}
+            placeholder="Эхлэх"
+            style={{
+              borderColor: "#E1E1E1",
+              width: "120px",
+              height: "40px",
+              color: "#1D3049",
+              marginRight: "10px",
+            }}
+            onChange={onChangeStart}
+            className="custom-datepicker"
+            suffixIcon={<DateIcon />}
+          />
+          <DatePicker
+            picker="date"
+            placeholder="Дуусах"
+            style={{
+              borderColor: "#E1E1E1",
+              width: "120px",
+              height: "40px",
+            }}
+            onChange={onChangeEnd}
+            className="custom-datepicker"
+            suffixIcon={<DateIcon />}
+          />
+        </div>
+        <Select />
       </div>
-      <div className="mb-[5vh] w-full rounded-lg shadow-boxThin px-[5%] py-[10px]">
+
+      <div className=" w-full rounded-lg shadow-boxThin">
         <div className=" ">
           <div className="lg:overflow-visible overflow-auto w-full mt-4 z-100">
             <Table
-              // loading={loading}
               columns={columns}
-              dataSource={OrderData()}
+              dataSource={orderData}
               pagination={paginationConfig}
+              loading={loading}
             />
           </div>
         </div>

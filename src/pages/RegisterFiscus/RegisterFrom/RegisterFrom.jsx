@@ -1,11 +1,16 @@
 import { Button, Form, Input, Select, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 export const RegisterFrom = () => {
   const [form] = Form.useForm();
   const [password, setPassword] = useState({ first: "", second: "" });
 
   const [passwordError, setPasswordError] = useState(null);
+
+  const location = useLocation();
+
+  console.log("location", location);
 
   // Function to validate password
   const validatePassword = () => {
@@ -31,7 +36,8 @@ export const RegisterFrom = () => {
       }
 
       // Remove confirmPassword field from values
-      const { confirmPassword, ...formData } = values;
+      // const { confirmPassword, ...formData } = values;
+      delete values.confirmPassword;
 
       // If all validations pass, submit the form
       console.log("Form values:", values);
@@ -73,24 +79,44 @@ export const RegisterFrom = () => {
       >
         <Input />
       </Form.Item>
-      <Form.Item
-        label="Утасны дугаар"
-        name={"phoneNumber"}
-        rules={[
-          {
-            required: true,
-            message: "Утасны дугаараа бичнэ үү!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item label="Байгууллага" name={"company"}>
-        <Select />
-      </Form.Item>
-      <Form.Item label="Албан тушаал" name={"position"}>
-        <Select />
-      </Form.Item>
+      {location.search === null ||
+        (location.search === "" && (
+          <Form.Item
+            label="Цахим хуудас"
+            name={"email"}
+            rules={[
+              {
+                required: true,
+                message: "Цахим хуудсаа бичнэ үү!",
+              },
+              { type: "email", message: "Зөв цахим шуудан оруулна уу!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        ))}
+      {location.search && (
+        <>
+          <Form.Item
+            label="Утасны дугаар"
+            name={"phoneNumber"}
+            rules={[
+              {
+                required: true,
+                message: "Утасны дугаараа бичнэ үү!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item label="Байгууллага" name={"company"}>
+            <Select />
+          </Form.Item>
+          <Form.Item label="Албан тушаал" name={"position"}>
+            <Select />
+          </Form.Item>
+        </>
+      )}
       <Form.Item
         label="Нууц үг"
         name={"password"}
@@ -115,7 +141,7 @@ export const RegisterFrom = () => {
           iconRender={(visible) =>
             visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
           }
-          onChange={(e) => setPassword({ ...password, second: e.target.value })}
+          onChange={(e) => setPassword({ ...password, first: e.target.value })}
         />
       </Form.Item>
       <Form.Item
@@ -132,7 +158,7 @@ export const RegisterFrom = () => {
           iconRender={(visible) =>
             visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
           }
-          onChange={(e) => setPassword({ ...password, first: e.target.value })}
+          onChange={(e) => setPassword({ ...password, second: e.target.value })}
         />
       </Form.Item>
       <Form.Item

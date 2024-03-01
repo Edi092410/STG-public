@@ -25,7 +25,7 @@ export const Course = () => {
   console.log("total videos", videos.length);
 
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-3 gap-5 px-[5%] my-[5vh]">
       {videos.map((video) => (
         <div className="flex justify-center">
           <CourseElement

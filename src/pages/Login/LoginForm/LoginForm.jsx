@@ -1,33 +1,47 @@
 import { Button, Form, Input, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { PostDataService } from "../../../backend/axios/AxiosService2";
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 6,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 14,
+    },
+  },
+};
 export const LoginForm = () => {
   const [form] = Form.useForm();
-  const formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 6,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 14,
-      },
-    },
-  };
+  const navigate = useNavigate();
   const handleSubmit = async (values) => {
-    console.log("value", values);
     try {
       await form.validateFields(); // Validate all fields
-
       // If all validations pass, submit the form
       console.log("Form values:", values);
-      message.success("Амжилттай илгээгдлээ!");
+      const response = await PostDataService("/users/authenticate", values);
+      console.log("response", response);
+      if (response.status === 200) {
+        // role?
+        localStorage.setItem("name", response?.data?.user?.username);
+        localStorage.setItem("token", response?.data?.token);
+        localStorage.setItem("email", response.data.user.email);
+        localStorage.setItem("companies", JSON.stringify(response.data.orgs));
+        localStorage.setItem(
+          "notificationCount",
+          response?.data?.notificationCount
+        );
+        message.success("Амжилттай илгээгдлээ!");
+      }
     } catch (error) {
       console.error("Validation failed:", error);
       message.error("Ахин шалгана уу!.");
@@ -36,11 +50,11 @@ export const LoginForm = () => {
   return (
     <Form {...formItemLayout} form={form} onFinish={(e) => handleSubmit(e)}>
       <Form.Item
-        label="Нэр"
-        name={"name"}
-        rules={[{ required: true, message: "Нэвтрэх нэрээ оруулна уу!" }]}
+        label="Цахим шуудан"
+        name={"email"}
+        rules={[{ required: true, message: "Цахим шуудангаа оруулна уу!" }]}
       >
-        <Input />
+        <Input type="email" />
       </Form.Item>
       <Form.Item
         label="Нууц үг"
@@ -76,10 +90,15 @@ export const LoginForm = () => {
       >
         <Button htmlType="submit">Нэвтрэх</Button>
       </Form.Item>
-      {/* <div className="flex justify-around">
-        <div>Бүргүүлэх</div>
+      <div className="flex justify-around">
+        <div
+          className="cursor-pointer "
+          onClick={() => navigate("/registration")}
+        >
+          Бүргүүлэх
+        </div>
         <div>Нууц үг мартсан</div>
-      </div> */}
+      </div>
     </Form>
   );
 };

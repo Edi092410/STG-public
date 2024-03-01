@@ -14,18 +14,15 @@ import { RegisterFiscus } from "../pages/RegisterFiscus/RegisterFiscus";
 import { Dashboard } from "../pages/Dashboard/Dashboard";
 import { Summary } from "../pages/Summary/Summary";
 import { CourseWatch } from "../pages/CourseWatch/CourseWatch";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<MainPage />} />
+        {/* <Route element={<PrivateRoute />}> */}
         <Route path="notifications" element={<AllNotification />} />
-        <Route path="login" element={<Login />} />
-        <Route path="changePassword" element={<ChangePassword />} />
-        <Route path="forgetPassword" element={<ForgetPassword />} />
-        <Route path="register" element={<Register />} />
-        <Route path="registration" element={<RegisterFiscus />} />
         <Route path="dashboard" element={<Dashboard />}>
           <Route index element={<Summary />} />
           <Route path="service" element={<OrderList />} />
@@ -33,6 +30,12 @@ export const AppRoutes = () => {
           <Route path="course" element={<Course />} />
           <Route path="courseWatch/:id" element={<CourseWatch />} />
         </Route>
+        {/* </Route> */}
+        <Route path="login" element={<Login />} />
+        <Route path="changePassword" element={<ChangePassword />} />
+        <Route path="forgetPassword" element={<ForgetPassword />} />
+        <Route path="register" element={<Register />} />
+        <Route path="registration" element={<RegisterFiscus />} />
       </Route>
       <Route
         path="*"

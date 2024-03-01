@@ -33,7 +33,7 @@ export const RegisterForm = () => {
       const { confirmPassword, ...formData } = values;
 
       // If all validations pass, submit the form
-      console.log("Form values:", values);
+      console.log("Form values:", formData);
       message.success("Амжилттай илгээгдлээ!");
     } catch (error) {
       console.error("Validation failed:", error);

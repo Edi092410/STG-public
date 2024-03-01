@@ -1,24 +1,26 @@
 import { AppRoutes } from "./routes/AppRoutes";
 import { ConfigProvider } from "antd";
-import { CourseElement } from "./pages/Course/CourseElement/CourseElement";
+import { AuthProvider } from "./utils/contexts/AuthProvider";
 
 function App() {
   return (
     <div className=" text-sm">
-      <ConfigProvider
-        theme={{
-          components: {
-            Menu: {
-              horizontalItemHoverColor: "#FFF",
-              horizontalItemSelectedColor: "#FFF",
-              itemHoverColor: "#FFF",
-              itemSelectedColor: "#FFF",
+      <AuthProvider>
+        <ConfigProvider
+          theme={{
+            components: {
+              Menu: {
+                horizontalItemHoverColor: "#FFF",
+                horizontalItemSelectedColor: "#FFF",
+                itemHoverColor: "#FFF",
+                itemSelectedColor: "#FFF",
+              },
             },
-          },
-        }}
-      >
-        <AppRoutes />
-      </ConfigProvider>
+          }}
+        >
+          <AppRoutes />
+        </ConfigProvider>
+      </AuthProvider>
     </div>
   );
 }

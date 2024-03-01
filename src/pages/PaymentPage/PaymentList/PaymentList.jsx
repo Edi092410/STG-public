@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { SearchProps } from "../../../components/common/SearchProps/SearchProps";
 import { Table } from "antd";
 
-export const PaymentList = ({ OrderData }) => {
+export const PaymentList = ({ OrderData, loading }) => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -112,7 +112,7 @@ export const PaymentList = ({ OrderData }) => {
     },
   ];
   return (
-    <div className="w-full shadow-boxThin rounded-lg p-[2%]">
+    <div className="w-full shadow-boxThin rounded-lg">
       <div className="w-full">
         {/* <div
           className="float-right cursor-pointer hover:scale-110 transition duration-200"
@@ -125,6 +125,7 @@ export const PaymentList = ({ OrderData }) => {
       <Table
         columns={columns}
         dataSource={OrderData ?? []}
+        loading={loading}
         pagination={{
           total: OrderData ? OrderData.length : 0, // Total number of items
           showSizeChanger: true, // Show the "items per page" dropdown
