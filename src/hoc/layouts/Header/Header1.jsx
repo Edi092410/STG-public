@@ -25,9 +25,9 @@ export const Header1 = () => {
 
       {auth ? (
         <AuthenticatedDropDown
-          name={"Test"}
-          email={"test@gmail.com"}
-          notificationCount={6}
+          name={localStorage.getItem("name")}
+          email={localStorage.getItem("email")}
+          notificationCount={localStorage.getItem("notificationCount")}
         />
       ) : (
         <UnauthenticateSection />

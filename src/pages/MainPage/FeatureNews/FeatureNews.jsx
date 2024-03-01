@@ -1,5 +1,4 @@
 import { Card } from "antd";
-import { RightOutlined } from "@ant-design/icons";
 
 export const FeatureNews = () => {
   const items = [
@@ -30,7 +29,7 @@ export const FeatureNews = () => {
   ];
   return (
     <div className="">
-      <div className="w-full text-center font-bold text-3xl my-4">
+      <div className="w-full text-center font-bold text-2xl my-6">
         Мэдээ, мэдээлэл
       </div>
       <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center">

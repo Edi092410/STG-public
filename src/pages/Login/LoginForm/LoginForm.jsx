@@ -2,6 +2,7 @@ import { Button, Form, Input, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { PostDataService } from "../../../backend/axios/AxiosService2";
+import { useAuth } from "../../../utils/contexts/AuthProvider";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -23,9 +24,11 @@ const formItemLayout = {
 export const LoginForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
   const handleSubmit = async (values) => {
     try {
-      await form.validateFields(); // Validate all fields
+      // Validate all fields
+      await form.validateFields();
       // If all validations pass, submit the form
       console.log("Form values:", values);
       const response = await PostDataService("/users/authenticate", values);
@@ -40,7 +43,9 @@ export const LoginForm = () => {
           "notificationCount",
           response?.data?.notificationCount
         );
-        message.success("Амжилттай илгээгдлээ!");
+        message.success("Амжилттай нэвтэрлээ!");
+        setAuth(true);
+        navigate(-1);
       }
     } catch (error) {
       console.error("Validation failed:", error);

@@ -1,6 +1,6 @@
 import { Input, Space, Button } from "antd";
 import { TextHighlighter } from "../TextHighlighter/TextHighlighter";
-import SearchOutlined from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 
 // Search-н render-лэх component
 export const SearchProps = ({

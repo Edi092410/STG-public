@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { PaymentList } from "./PaymentList/PaymentList";
-import { PaymentData } from "./Data/PaymentData";
-import { DatePicker, Select, message } from "antd";
-import { DateIcon } from "../../assets/icons/DateIcon";
+import { message } from "antd";
 import { Card } from "../../components/common/Card/Card";
-import { GetDataService } from "../../backend/axios/AxiosService2";
+import { GetDataWithAuthorization } from "../../backend/axios/AxiosService2";
+import { SelectCompany } from "../../components/forSite/SelectCompany/SelectCompany";
+import { DateRangePicker } from "../../components/common/DateRangePicker/DateRangePicker";
 
 export const PaymentPage = () => {
   const currentYear = new Date().getFullYear();
@@ -14,20 +14,13 @@ export const PaymentPage = () => {
     end: `${currentYear}-12-31`,
   });
 
-  // Hugatsaan shuultiin ehnii date
-  const onChangeStart = (date, dateString) => {
-    console.log("start date:", dateString);
-    setDates({ ...dates, start: dateString });
-  };
+  const companies = JSON.parse(localStorage.getItem("companies"));
 
-  // Hugatsaan shuultiin tugsguliin date
-  const onChangeEnd = (date, dateString) => {
-    console.log("end date:", dateString);
-    setDates({ ...dates, end: dateString });
-  };
+  const [selectedCompany, setSelectedCompany] = useState(
+    companies[0].customerId
+  );
 
   const [loading, setLoading] = useState(false);
-  const [selectedCompany, setSelectedCompany] = useState("");
   const [OrderData, setOrderData] = useState([]);
   const [beginBalance, setBeginBalance] = useState("");
 
@@ -57,11 +50,12 @@ export const PaymentPage = () => {
     const FetchData = async () => {
       setLoading(true);
       try {
-        const response = await GetDataService(
+        const response = await GetDataWithAuthorization(
           `/services/getbillinginfo?customerId=${selectedCompany}&startDate=${dates.start}&endDate=${dates.end}`
         );
         console.log("response", response);
         setOrderData(response?.data?.transactions);
+        setBeginBalance(response?.data?.beginbalance);
       } catch (err) {
         message.error(err.message);
         console.log(err);
@@ -74,37 +68,17 @@ export const PaymentPage = () => {
 
   return (
     <div className="px-[5%] my-[5vh]">
-      <Select />
+      <SelectCompany
+        companies={companies}
+        selectedCompany={selectedCompany}
+        setSelectedCompany={setSelectedCompany}
+      />
       <div className="flex items-center justify-between my-4">
-        <div className="flex items-center">
-          <DatePicker
-            picker="date"
-            showToday={false}
-            placeholder="Эхлэх"
-            style={{
-              borderColor: "#E1E1E1",
-              width: "120px",
-              height: "40px",
-              color: "#1D3049",
-              marginRight: "10px",
-            }}
-            onChange={onChangeStart}
-            className="custom-datepicker"
-            suffixIcon={<DateIcon />}
-          />
-          <DatePicker
-            picker="date"
-            placeholder="Дуусах"
-            style={{
-              borderColor: "#E1E1E1",
-              width: "120px",
-              height: "40px",
-            }}
-            onChange={onChangeEnd}
-            className="custom-datepicker"
-            suffixIcon={<DateIcon />}
-          />
-        </div>
+        <DateRangePicker
+          dates={dates}
+          setDates={setDates}
+          className={` gap-x-4`}
+        />
         <div className="flex items-center gap-x-2">
           <Card
             className={`w-[200px] h-[40px] bg-white rounded-lg border border-slate-200`}

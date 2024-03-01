@@ -6,8 +6,10 @@ import { NotificationData } from "../../../../components/forSite/HeaderNotificat
 import { NotificationElement } from "../../../../components/forSite/HeaderNotification/NotificationElement";
 import { Element } from "../../../../components/forSite/ProfileMenu/Element";
 import { MenuData } from "../../../../components/forSite/ProfileMenu/Data/MenuData";
+import { useAuth } from "../../../../utils/contexts/AuthProvider";
 
 export const AuthenticatedDropDown = ({ name, notificationCount, email }) => {
+  const { setAuth } = useAuth();
   return (
     <div className="flex items-center gap-x-4 h-fit">
       <Dropdown
@@ -44,7 +46,13 @@ export const AuthenticatedDropDown = ({ name, notificationCount, email }) => {
               </div>
             </div>
             <List lists={MenuData()} ListElement={Element} liclassName="" />
-            <div className="font-semibold cursor-pointer p-2">
+            <div
+              className="font-semibold cursor-pointer p-2"
+              onClick={() => {
+                localStorage.clear();
+                setAuth(false);
+              }}
+            >
               Системээс гарах
             </div>
           </Card>
@@ -52,7 +60,7 @@ export const AuthenticatedDropDown = ({ name, notificationCount, email }) => {
       >
         <div className="flex items-center cursor-pointer">
           <ProfileIcon color={"#FFF"} size={25} />
-          Test
+          {name}
         </div>
       </Dropdown>
     </div>
