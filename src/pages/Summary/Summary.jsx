@@ -3,7 +3,7 @@ import { Select } from "antd";
 
 export const Summary = () => {
   return (
-    <div className=" grid grid-cols-2">
+    <div className="grid grid-cols-2 px-[5%] my-[5vh]">
       <DashboardCard className={`w-[400px]`}>
         <div className="p-4">
           {/* Header Section */}
@@ -34,7 +34,7 @@ export const Summary = () => {
         </div>
       </DashboardCard>
       <DashboardCard className={`w-[400px]`}>
-        <div className="p-4">
+        <div className="px-4">
           {/* Header Section */}
           <div className="flex items-center justify-between mb-4">
             <div className="text-lg font-bold text-stg-color">Захиалга</div>
@@ -47,21 +47,20 @@ export const Summary = () => {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {/* Хүлээгдэж байгаа */}
-          <div className="text-[#BDBDBD] flex items-center justify-center text-lg font-bold">
-            40
+          <div className=" text-slate-400">
+            Хүлээгдэж байгаа:{" "}
+            <span className=" font-semibold text-stg-color">40</span>
           </div>
-          {/* Хийгдэж байгаа */}
-          <div className=" text-[#0496D4] flex items-center justify-center text-lg font-bold">
-            30
+          <div className=" text-slate-400">
+            Хийгдэж байгаа:{" "}
+            <span className=" font-semibold text-stg-color">40</span>
           </div>
-          {/* Хийгдсэн */}
-          <div className=" text-[#78A983] flex items-center justify-center text-lg font-bold">
-            20
+          <div className=" text-slate-400">
+            Хийгдсэн: <span className=" font-semibold text-stg-color">40</span>
           </div>
-          {/* Хийгдээгүй */}
-          <div className=" text-[#FAA61A] flex items-center justify-center text-lg font-bold">
-            11
+          <div className=" text-slate-400">
+            Хийгдээгүй:{" "}
+            <span className=" font-semibold text-stg-color">40</span>
           </div>
         </div>
       </DashboardCard>

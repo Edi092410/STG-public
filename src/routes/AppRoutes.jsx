@@ -15,22 +15,26 @@ import { Dashboard } from "../pages/Dashboard/Dashboard";
 import { Summary } from "../pages/Summary/Summary";
 import { CourseWatch } from "../pages/CourseWatch/CourseWatch";
 import { PrivateRoute } from "./PrivateRoute";
+import { Knowledge } from "../pages/Knowledge/Knowledge";
+import { Information } from "../pages/Information/Information";
 
 export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<MainPage />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="notifications" element={<AllNotification />} />
-          <Route path="dashboard" element={<Dashboard />}>
-            <Route index element={<Summary />} />
-            <Route path="service" element={<OrderList />} />
-            <Route path="payment" element={<PaymentPage />} />
-            <Route path="course" element={<Course />} />
-            <Route path="courseWatch/:id" element={<CourseWatch />} />
-          </Route>
+        {/* <Route element={<PrivateRoute />}> */}
+        <Route path="notifications" element={<AllNotification />} />
+        <Route path="dashboard" element={<Dashboard />}>
+          <Route index element={<Summary />} />
+          <Route path="service" element={<OrderList />} />
+          <Route path="payment" element={<PaymentPage />} />
+          <Route path="course" element={<Course />} />
+          <Route path="courseWatch/:id" element={<CourseWatch />} />
         </Route>
+        {/* </Route> */}
+        <Route path="information" element={<Information />} />
+        <Route path="knowledge" element={<Knowledge />} />
         <Route path="login" element={<Login />} />
         <Route path="changePassword" element={<ChangePassword />} />
         <Route path="forgetPassword" element={<ForgetPassword />} />

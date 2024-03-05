@@ -1,22 +1,22 @@
-import React from "react";
+import { PostDataWithAuthorization } from "../../../backend/axios/AxiosService2";
 
-export const MarkAll = () => {
+export const MarkAll = ({ RemoveAll, reRender }) => {
   const onClick = async () => {
-    // try {
-    //   const response = await PostDataWithAuthorization(
-    //     "/notification/markseenall",
-    //     {}
-    //   );
-    //   console.log("response of mark seen all", response);
-    //   if (response.status === 200) {
-    //     // localStorage.setItem("notificationCount", 0);
-    //     // setNotificationCount(0);
-    //     RemoveAll();
-    //     reRender();
-    //   }
-    // } catch (error) {
-    //   console.log("error from mark seen all:", error);
-    // }
+    try {
+      const response = await PostDataWithAuthorization(
+        "/notification/markseenall",
+        {}
+      );
+      console.log("response of mark seen all", response);
+      if (response.status === 200) {
+        // localStorage.setItem("notificationCount", 0);
+        // setNotificationCount(0);
+        RemoveAll();
+        reRender();
+      }
+    } catch (error) {
+      console.log("error from mark seen all:", error);
+    }
     console.log("Mark all");
   };
   return (

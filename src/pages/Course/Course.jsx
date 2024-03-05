@@ -11,8 +11,8 @@ export const Course = () => {
         // const response = await GetDataWithAuth(`getParentAndChilds/${id}`);
         const response = await GetData(`getParentLessons`);
         // console.log("response", response);
-        setVideos(response.data.data);
-        console.log("video", response.data.data);
+        setVideos(response?.data?.data);
+        console.log("video", response?.data?.data);
       } catch (error) {
         console.log("video error", error);
         // Handle the error

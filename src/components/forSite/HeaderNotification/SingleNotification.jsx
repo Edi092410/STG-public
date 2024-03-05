@@ -1,4 +1,3 @@
-import React from "react";
 import { DateResult } from "../../../utils/functions/DateResult";
 export const SingleNotification = ({ text, onClick, date, seen }) => {
   return (

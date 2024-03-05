@@ -1,10 +1,10 @@
 import React from "react";
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export const ViewAll = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const onClick = () => {
-    // navigate("/notifications");
+    navigate("/notifications");
     console.log("view all");
   };
   return (
