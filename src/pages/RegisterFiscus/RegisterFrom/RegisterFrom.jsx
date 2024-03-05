@@ -1,24 +1,52 @@
 import { Button, Form, Input, Select, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  GetDataService,
+  PostDataService,
+} from "../../../backend/axios/AxiosService2";
 export const RegisterFrom = () => {
   const [form] = Form.useForm();
   const [password, setPassword] = useState({ first: "", second: "" });
 
-  const [passwordError, setPasswordError] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [hash, setHash] = useState("");
 
   const location = useLocation();
 
-  console.log("location", location);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      if (location.search.includes("hash=")) {
+        const searchParams = new URLSearchParams(location.search);
+        setHash(searchParams.get("hash"));
+        const response = await GetDataService(
+          `/users/checkinvitation?email=${searchParams.get(
+            "email"
+          )}&hash=${searchParams.get("hash")}`
+        );
+        console.log("check invitation", response);
+        if (
+          response?.response?.status === 404 &&
+          response?.response?.data?.success === false
+        ) {
+          console.log("No matching password");
+          message.warning("Урилга таарахгүй байна");
+        }
+      }
+    };
+    checkUser();
+  }, [location.search]);
 
   // Function to validate password
   const validatePassword = () => {
     if (password.first !== password.second) {
-      setPasswordError("Нууц үг таарахгүй байна!");
+      setErrorMsg("Нууц үг таарахгүй байна!");
       return false;
     } else {
-      setPasswordError(null);
+      setErrorMsg(null);
       return true;
     }
   };
@@ -30,18 +58,21 @@ export const RegisterFrom = () => {
       await form.validateFields(); // Validate all fields
       // Password validation
       const isPasswordValid = validatePassword();
-
       if (!isPasswordValid) {
         throw new Error("Password mismatch");
       }
-
       // Remove confirmPassword field from values
-      // const { confirmPassword, ...formData } = values;
       delete values.confirmPassword;
-
-      // If all validations pass, submit the form
-      console.log("Form values:", values);
-      message.success("Амжилттай илгээгдлээ!");
+      values.hash = hash;
+      const response = await PostDataService("/users/register", values);
+      if (response?.response?.data?.success) {
+        message.success("Амжилттай бүртгүүллээ!");
+        navigate("/");
+      } else if (response?.response?.status === 400) {
+        setErrorMsg("Мэдээллээ шалгана уу!");
+      } else if (response?.response?.status === 500) {
+        setErrorMsg("Сүлжээнд асуудал гарлаа");
+      }
     } catch (error) {
       console.error("Validation failed:", error);
       message.error("Ахин шалгана уу!.");
@@ -69,7 +100,7 @@ export const RegisterFrom = () => {
     <Form {...formItemLayout} form={form} onFinish={(e) => handleSubmit(e)}>
       <Form.Item
         label="Нэр"
-        name={"name"}
+        name={"Username"}
         rules={[
           {
             required: true,
@@ -99,7 +130,7 @@ export const RegisterFrom = () => {
         <>
           <Form.Item
             label="Утасны дугаар"
-            name={"phoneNumber"}
+            name={"phonenumber"}
             rules={[
               {
                 required: true,
@@ -109,11 +140,23 @@ export const RegisterFrom = () => {
           >
             <Input />
           </Form.Item>
-          <Form.Item label="Байгууллага" name={"company"}>
+          <Form.Item label="Байгууллага" name={"Customers"}>
             <Select />
           </Form.Item>
-          <Form.Item label="Албан тушаал" name={"position"}>
-            <Select />
+          <Form.Item
+            label="Албан тушаал"
+            name={"Position"}
+            rules={[
+              {
+                required: true,
+                message: "Албан тушаалаа сонгоно уу!",
+              },
+            ]}
+          >
+            <Select>
+              <Option value="1">Менежер</Option>
+              <Option value="0">Нягтлан</Option>
+            </Select>
           </Form.Item>
         </>
       )}
@@ -169,9 +212,7 @@ export const RegisterFrom = () => {
       >
         <Button htmlType="submit">Бүртгүүлэх</Button>
       </Form.Item>
-      <div className=" text-red-500 w-full flex justify-center">
-        {passwordError}
-      </div>
+      <div className=" text-red-500 w-full flex justify-center">{errorMsg}</div>
     </Form>
   );
 };

@@ -23,16 +23,16 @@ export const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<MainPage />} />
-        {/* <Route element={<PrivateRoute />}> */}
-        <Route path="notifications" element={<AllNotification />} />
-        <Route path="dashboard" element={<Dashboard />}>
-          <Route index element={<Summary />} />
-          <Route path="service" element={<OrderList />} />
-          <Route path="payment" element={<PaymentPage />} />
-          <Route path="course" element={<Course />} />
-          <Route path="courseWatch/:id" element={<CourseWatch />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="notifications" element={<AllNotification />} />
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route index element={<Summary />} />
+            <Route path="service" element={<OrderList />} />
+            <Route path="payment" element={<PaymentPage />} />
+            <Route path="course" element={<Course />} />
+            <Route path="courseWatch/:id" element={<CourseWatch />} />
+          </Route>
         </Route>
-        {/* </Route> */}
         <Route path="information" element={<Information />} />
         <Route path="knowledge" element={<Knowledge />} />
         <Route path="login" element={<Login />} />
