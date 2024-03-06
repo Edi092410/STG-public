@@ -1,6 +1,6 @@
-import { DropDown } from "../../common/DropDown/DropDown";
+import { useState, useContext, useEffect } from "react";
+import { Dropdown, Badge, Card } from "antd";
 import { NotificationIcon } from "../../../assets/icons/NotificationIcon";
-import { NotificationBadge } from "../../ui/NotificationBadge/NotificationBadge";
 import { NotificationElement } from "./NotificationElement";
 import { ViewAll } from "./ViewAll";
 import { MarkAll } from "./MarkAll";
@@ -75,64 +75,33 @@ export const HeaderNotification = () => {
     }
   };
 
-  const getMarginValue = () => {
-    const screenWidth = window.innerWidth;
-    // Define your logic to calculate margin based on screen width
-    // For example, you can set different margins for different screen sizes
-    if (screenWidth <= 1900) {
-      return 15;
-    } else {
-      return 25;
-    }
-  };
-
-  const isSmallScreen = () => {
-    const screen = window.innerWidth;
-    if (screen < 768) return true;
-    return false;
-  };
-
   return (
-    <DropDown
-      trigger={
-        <NotificationBadge
-          Badge={NotificationIcon}
-          badgeHeight={25}
-          badgeWidth={25}
-          counterHeight={18}
-          counterWidth={18}
-          count={notificationCount}
-          location={"top right"}
-        />
+    <Dropdown
+      overlay={
+        <Card
+          style={{
+            backgroundColor: "#1D3049",
+            borderWidth: 0,
+            width: "400px",
+          }}
+        >
+          <List
+            lists={NotificationData().slice(0, 5)}
+            ListElement={NotificationElement}
+            liclassName={`mb-4`}
+          />
+          <div className="flex justify-between text-white">
+            <ViewAll />
+            <MarkAll RemoveAll={RemoveAll} reRender={onClick} />
+          </div>
+        </Card>
       }
-      onclick={onClick}
-      location={"bottom center right"}
-      margin={getMarginValue()}
-      isSmallScreen={isSmallScreen()}
     >
-      <div className="w-[400px] rounded-b-lg bg-[#1D3049] text-xs p-3">
-        {list.slice(0, 10).map((prop, index) => {
-          return (
-            <div key={index} className="mb-3">
-              <NotificationElement
-                text={prop?.message}
-                seen={prop?.seen}
-                date={prop?.createDate}
-                number={prop?.number}
-                id={prop?.id}
-                customerId={prop?.customerId}
-                reRender={onClick}
-                RemoveOne={RemoveOne}
-              />
-            </div>
-          );
-        })}
-
-        <div className="flex justify-between">
-          <ViewAll />
-          <MarkAll RemoveAll={RemoveAll} reRender={onClick} />
+      <Badge count={notificationCount}>
+        <div className="cursor-pointer">
+          <NotificationIcon />
         </div>
-      </div>
-    </DropDown>
+      </Badge>
+    </Dropdown>
   );
 };

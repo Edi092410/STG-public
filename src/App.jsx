@@ -2,7 +2,6 @@ import { AppRoutes } from "./routes/AppRoutes";
 import { ConfigProvider } from "antd";
 import { AuthProvider } from "./utils/contexts/AuthProvider";
 import { NotificationCountProvider } from "./utils/contexts/NotificationCountContext";
-import { CompanyChips } from "./pages/RegisterFiscus/CompanyChips/CompanyChips";
 
 function App() {
   return (
@@ -21,8 +20,7 @@ function App() {
               },
             }}
           >
-            {/* <AppRoutes /> */}
-            <CompanyChips />
+            <AppRoutes />
           </ConfigProvider>
         </NotificationCountProvider>
       </AuthProvider>

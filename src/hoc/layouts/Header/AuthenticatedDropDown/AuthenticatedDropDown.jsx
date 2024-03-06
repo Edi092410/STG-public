@@ -1,12 +1,12 @@
-import { Dropdown, Card, Badge } from "antd";
+import { Dropdown, Card } from "antd";
 import { List } from "../../../../components/common/List/List";
 import { ProfileIcon } from "../../../../assets/icons/ProfileIcon";
-import { NotificationIcon } from "../../../../assets/icons/NotificationIcon";
 import { NotificationData } from "../../../../components/forSite/HeaderNotification/Data/NotificationData";
 import { NotificationElement } from "../../../../components/forSite/HeaderNotification/NotificationElement";
 import { Element } from "../../../../components/forSite/ProfileMenu/Element";
 import { MenuData } from "../../../../components/forSite/ProfileMenu/Data/MenuData";
 import { useAuth } from "../../../../utils/contexts/AuthProvider";
+import { HeaderNotification } from "../../../../components/forSite/HeaderNotification/HeaderNotification";
 
 export const AuthenticatedDropDown = ({ name, notificationCount, email }) => {
   const { setAuth } = useAuth();
@@ -29,11 +29,12 @@ export const AuthenticatedDropDown = ({ name, notificationCount, email }) => {
           </Card>
         }
       >
-        <Badge count={notificationCount}>
+        {/* <Badge count={notificationCount}>
           <div className="cursor-pointer">
             <NotificationIcon />
           </div>
-        </Badge>
+        </Badge> */}
+        <HeaderNotification />
       </Dropdown>
       <Dropdown
         overlay={

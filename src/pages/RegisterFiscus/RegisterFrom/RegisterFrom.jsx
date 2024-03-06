@@ -6,9 +6,30 @@ import {
   GetDataService,
   PostDataService,
 } from "../../../backend/axios/AxiosService2";
+import { CompanyChips } from "../CompanyChips/CompanyChips";
 export const RegisterFrom = () => {
   const [form] = Form.useForm();
   const [password, setPassword] = useState({ first: "", second: "" });
+
+  // const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState({ ids: [], names: [] });
+  const [inputValue, setInputValue] = useState("");
+  const handleInputConfirm = async () => {
+    if (inputValue && !tags.ids.includes(inputValue)) {
+      const response = await GetDataService(
+        `/users/checkorg?register=${inputValue}`
+      );
+      console.log("check company", response);
+      if (response?.response?.data?.success)
+        setTags({
+          ids: [...tags.ids, inputValue],
+          names: [...tags.names, response?.response?.data?.data?.name],
+        });
+      else setErrorMsg("Компани олдсонгүй");
+      setTags([...tags, inputValue]);
+    }
+    setInputValue("");
+  };
 
   const [errorMsg, setErrorMsg] = useState(null);
   const [hash, setHash] = useState("");
@@ -22,18 +43,22 @@ export const RegisterFrom = () => {
       if (location.search.includes("hash=")) {
         const searchParams = new URLSearchParams(location.search);
         setHash(searchParams.get("hash"));
-        const response = await GetDataService(
-          `/users/checkinvitation?email=${searchParams.get(
-            "email"
-          )}&hash=${searchParams.get("hash")}`
-        );
-        console.log("check invitation", response);
-        if (
-          response?.response?.status === 404 &&
-          response?.response?.data?.success === false
-        ) {
-          console.log("No matching password");
-          message.warning("Урилга таарахгүй байна");
+        try {
+          const response = await GetDataService(
+            `/users/checkinvitation?email=${searchParams.get(
+              "email"
+            )}&hash=${searchParams.get("hash")}`
+          );
+          console.log("check invitation", response);
+          if (
+            response?.response?.status === 404 &&
+            response?.response?.data?.success === false
+          ) {
+            console.log("No matching password");
+            message.warning("Урилга таарахгүй байна");
+          }
+        } catch (error) {
+          setErrorMsg("Алдаа гарлаа.");
         }
       }
     };
@@ -64,6 +89,7 @@ export const RegisterFrom = () => {
       // Remove confirmPassword field from values
       delete values.confirmPassword;
       values.hash = hash;
+      values.Customers = tags;
       const response = await PostDataService("/users/register", values);
       if (response?.response?.data?.success) {
         message.success("Амжилттай бүртгүүллээ!");
@@ -140,8 +166,23 @@ export const RegisterFrom = () => {
           >
             <Input />
           </Form.Item>
-          <Form.Item label="Байгууллага" name={"Customers"}>
-            <Select />
+          <Form.Item
+            label="Байгууллага"
+            name={"Customers"}
+            rules={[
+              {
+                required: !(tags.length > 0),
+                message: "Компанийхаа регистрийг оруулна уу!",
+              },
+            ]}
+          >
+            <CompanyChips
+              tags={tags}
+              setTags={setTags}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              handleInputConfirm={handleInputConfirm}
+            />
           </Form.Item>
           <Form.Item
             label="Албан тушаал"

@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { PostDataService } from "../../../backend/axios/AxiosService2";
 import { useAuth } from "../../../utils/contexts/AuthProvider";
 const formItemLayout = {
@@ -25,6 +25,7 @@ export const LoginForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const { setAuth } = useAuth();
+  const { state: locationState } = useLocation();
   const handleSubmit = async (values) => {
     try {
       // Validate all fields
@@ -45,7 +46,11 @@ export const LoginForm = () => {
         );
         message.success("Амжилттай нэвтэрлээ!");
         setAuth(true);
-        navigate(-1);
+        if (locationState) {
+          navigate(
+            `${locationState.redirectTo.pathname}${locationState.redirectTo.search}`
+          );
+        } else navigate("/");
       }
     } catch (error) {
       console.error("Validation failed:", error);
