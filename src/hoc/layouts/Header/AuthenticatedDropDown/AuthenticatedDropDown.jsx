@@ -1,41 +1,15 @@
 import { Dropdown, Card } from "antd";
 import { List } from "../../../../components/common/List/List";
 import { ProfileIcon } from "../../../../assets/icons/ProfileIcon";
-import { NotificationData } from "../../../../components/forSite/HeaderNotification/Data/NotificationData";
-import { NotificationElement } from "../../../../components/forSite/HeaderNotification/NotificationElement";
 import { Element } from "../../../../components/forSite/ProfileMenu/Element";
 import { MenuData } from "../../../../components/forSite/ProfileMenu/Data/MenuData";
 import { useAuth } from "../../../../utils/contexts/AuthProvider";
 import { HeaderNotification } from "../../../../components/forSite/HeaderNotification/HeaderNotification";
 
-export const AuthenticatedDropDown = ({ name, notificationCount, email }) => {
+export const AuthenticatedDropDown = ({ name, email }) => {
   const { setAuth } = useAuth();
   return (
     <div className="flex items-center gap-x-4 h-fit">
-      <Dropdown
-        overlay={
-          <Card
-            style={{
-              backgroundColor: "#1D3049",
-              borderWidth: 0,
-              width: "400px",
-            }}
-          >
-            <List
-              lists={NotificationData().slice(0, 5)}
-              ListElement={NotificationElement}
-              liclassName={`mb-4`}
-            />
-          </Card>
-        }
-      >
-        {/* <Badge count={notificationCount}>
-          <div className="cursor-pointer">
-            <NotificationIcon />
-          </div>
-        </Badge> */}
-        <HeaderNotification />
-      </Dropdown>
       <Dropdown
         overlay={
           <Card>
@@ -61,9 +35,11 @@ export const AuthenticatedDropDown = ({ name, notificationCount, email }) => {
       >
         <div className="flex items-center cursor-pointer">
           <ProfileIcon color={"#FFF"} size={25} />
-          {name}
+          <div className="ml-1">{name}</div>
         </div>
       </Dropdown>
+
+      <HeaderNotification />
     </div>
   );
 };

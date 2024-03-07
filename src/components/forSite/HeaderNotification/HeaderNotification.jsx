@@ -4,10 +4,11 @@ import { NotificationIcon } from "../../../assets/icons/NotificationIcon";
 import { NotificationElement } from "./NotificationElement";
 import { ViewAll } from "./ViewAll";
 import { MarkAll } from "./MarkAll";
-import { NotificationData } from "./Data/NotificationData";
-import { List } from "../../common/List/List";
+// import { NotificationData } from "./Data/NotificationData";
+// import { List } from "../../common/List/List";
 import { NotificationCountContext } from "../../../utils/contexts/NotificationCountContext";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { GetDataWithAuthorization } from "../../../backend/axios/AxiosService2";
 
 export const HeaderNotification = () => {
   const [connection, setConnection] = useState(null);
@@ -16,6 +17,22 @@ export const HeaderNotification = () => {
   );
   const token = localStorage.getItem("token");
   const [list, setList] = useState([]);
+
+  useEffect(() => {
+    const getList = async () => {
+      // NotificationAudio();
+      try {
+        const response = await GetDataWithAuthorization(
+          "/notification/getallnotifications"
+        );
+        setList(response?.data);
+      } catch (error) {
+        console.log("error from notification list:", error);
+      }
+    };
+    console.log("list getting");
+    getList();
+  }, []);
 
   useEffect(() => {
     const createConnection = async () => {
@@ -85,11 +102,22 @@ export const HeaderNotification = () => {
             width: "400px",
           }}
         >
-          <List
-            lists={NotificationData().slice(0, 5)}
-            ListElement={NotificationElement}
-            liclassName={`mb-4`}
-          />
+          {list.slice(0, 10).map((prop, index) => {
+            return (
+              <div key={index} className="mb-3">
+                <NotificationElement
+                  text={prop?.message}
+                  seen={prop?.seen}
+                  date={prop?.createDate}
+                  number={prop?.number}
+                  id={prop?.id}
+                  customerId={prop?.customerId}
+                  reRender={onClick}
+                  RemoveOne={RemoveOne}
+                />
+              </div>
+            );
+          })}
           <div className="flex justify-between text-white">
             <ViewAll />
             <MarkAll RemoveAll={RemoveAll} reRender={onClick} />

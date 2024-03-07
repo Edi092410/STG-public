@@ -7,63 +7,41 @@ import {
   PostDataService,
 } from "../../../backend/axios/AxiosService2";
 import { CompanyChips } from "../CompanyChips/CompanyChips";
-export const RegisterFrom = () => {
+
+export const RegisterFrom = ({
+  errorMsg,
+  setErrorMsg,
+  location,
+  hash,
+  setHash,
+  email,
+}) => {
   const [form] = Form.useForm();
   const [password, setPassword] = useState({ first: "", second: "" });
 
   // const [tags, setTags] = useState([]);
   const [tags, setTags] = useState({ ids: [], names: [] });
   const [inputValue, setInputValue] = useState("");
+
   const handleInputConfirm = async () => {
     if (inputValue && !tags.ids.includes(inputValue)) {
       const response = await GetDataService(
         `/users/checkorg?register=${inputValue}`
       );
-      console.log("check company", response);
-      if (response?.response?.data?.success)
+      if (response?.data?.succes)
         setTags({
           ids: [...tags.ids, inputValue],
-          names: [...tags.names, response?.response?.data?.data?.name],
+          names: [...tags.names, response?.data?.orgName],
         });
-      else setErrorMsg("Компани олдсонгүй");
-      setTags([...tags, inputValue]);
+      else {
+        setErrorMsg("Компани олдсонгүй");
+        // setTags([...tags, inputValue]);
+      }
     }
     setInputValue("");
   };
 
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [hash, setHash] = useState("");
-
-  const location = useLocation();
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkUser = async () => {
-      if (location.search.includes("hash=")) {
-        const searchParams = new URLSearchParams(location.search);
-        setHash(searchParams.get("hash"));
-        try {
-          const response = await GetDataService(
-            `/users/checkinvitation?email=${searchParams.get(
-              "email"
-            )}&hash=${searchParams.get("hash")}`
-          );
-          console.log("check invitation", response);
-          if (
-            response?.response?.status === 404 &&
-            response?.response?.data?.success === false
-          ) {
-            console.log("No matching password");
-            message.warning("Урилга таарахгүй байна");
-          }
-        } catch (error) {
-          setErrorMsg("Алдаа гарлаа.");
-        }
-      }
-    };
-    checkUser();
-  }, [location.search]);
 
   // Function to validate password
   const validatePassword = () => {
@@ -89,8 +67,10 @@ export const RegisterFrom = () => {
       // Remove confirmPassword field from values
       delete values.confirmPassword;
       values.hash = hash;
-      values.Customers = tags;
+      values.Customers = tags.ids;
+      values.email = email;
       const response = await PostDataService("/users/register", values);
+      console.log("response", response);
       if (response?.response?.data?.success) {
         message.success("Амжилттай бүртгүүллээ!");
         navigate("/");
@@ -171,7 +151,7 @@ export const RegisterFrom = () => {
             name={"Customers"}
             rules={[
               {
-                required: !(tags.length > 0),
+                required: !(tags.ids.length > 0),
                 message: "Компанийхаа регистрийг оруулна уу!",
               },
             ]}

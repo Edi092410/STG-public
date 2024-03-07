@@ -4,6 +4,7 @@ import { GetData } from "../../backend/axios/AxiosAdmin";
 import { VideoList } from "./VideoList/VideoList";
 import { Collapse } from "antd";
 import { ProfileIcon } from "../../assets/icons/ProfileIcon";
+import { stripHtmlTags } from "../../utils/functions/stripHtmlTags";
 
 export const CourseWatch = () => {
   const [videos, setVideos] = useState([]);
@@ -73,13 +74,13 @@ export const CourseWatch = () => {
                   {videos[0]?.intro && (
                     <>
                       <div className=" font-semibold">Хураангуй</div>
-                      <div>{videos[0]?.intro}</div>
+                      <div>{stripHtmlTags(videos[0]?.intro)}</div>
                     </>
                   )}
                   {videos[0]?.description && (
                     <>
                       <div className=" font-semibold">Дэлгэрэнгүй</div>
-                      <div>{videos[0]?.description}</div>
+                      <div>{stripHtmlTags(videos[0]?.description)}</div>
                     </>
                   )}
                 </div>

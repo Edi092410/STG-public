@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Table, message } from "antd";
+import { Button, Table, message } from "antd";
 import { GetDataWithAuthorization } from "../../backend/axios/AxiosService2";
 import { SelectCompany } from "../../components/forSite/SelectCompany/SelectCompany";
 import { DateRangePicker } from "../../components/common/DateRangePicker/DateRangePicker";
@@ -90,17 +90,20 @@ export const OrderList = () => {
 
   return (
     <div className=" px-[5%] my-[5vh]">
-      <div className="flex items-center justify-between mb-4">
+      <SelectCompany
+        companies={companies}
+        selectedCompany={selectedCompany}
+        setSelectedCompany={setSelectedCompany}
+      />
+      <div className="flex items-center justify-between my-4">
         <DateRangePicker
           dates={dates}
           setDates={setDates}
           className={`gap-x-4`}
         />
-        <SelectCompany
-          companies={companies}
-          selectedCompany={selectedCompany}
-          setSelectedCompany={setSelectedCompany}
-        />
+        <Button onClick={() => console.log("create new request")}>
+          Шинэ захиалга үүсгэх
+        </Button>
       </div>
 
       <div className=" w-full rounded-lg shadow-boxThin">

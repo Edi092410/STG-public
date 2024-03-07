@@ -3,6 +3,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PostDataService } from "../../../backend/axios/AxiosService2";
 import { useAuth } from "../../../utils/contexts/AuthProvider";
+import { useState } from "react";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -25,6 +26,7 @@ export const LoginForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const { setAuth } = useAuth();
+  const [errMsg, setErrMsg] = useState("");
   const { state: locationState } = useLocation();
   const handleSubmit = async (values) => {
     try {
@@ -51,7 +53,10 @@ export const LoginForm = () => {
             `${locationState.redirectTo.pathname}${locationState.redirectTo.search}`
           );
         } else navigate("/");
-      }
+      } else if (response?.response?.data?.success === false) {
+        setErrMsg(response?.response?.data?.msg);
+      } else if (response?.response?.request?.status === 500)
+        setErrMsg("Сүлжээнд асуудал гарлаа");
     } catch (error) {
       console.error("Validation failed:", error);
       message.error("Ахин шалгана уу!.");
@@ -98,13 +103,11 @@ export const LoginForm = () => {
           span: 16,
         }}
       >
+        <div className="text-red-500">{errMsg}</div>
         <Button htmlType="submit">Нэвтрэх</Button>
       </Form.Item>
       <div className="flex justify-around">
-        <div
-          className="cursor-pointer "
-          onClick={() => navigate("/registration")}
-        >
+        <div className="cursor-pointer " onClick={() => navigate("/register")}>
           Бүргүүлэх
         </div>
         <div>Нууц үг мартсан</div>

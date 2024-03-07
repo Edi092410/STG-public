@@ -8,8 +8,7 @@ const api = axios.create({
 export const GetDataService = async (endpoint) => {
   try {
     const response = await api.get(endpoint);
-    const data = response?.data?.data;
-    return data;
+    return response;
   } catch (error) {
     return error;
   }

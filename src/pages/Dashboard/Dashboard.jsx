@@ -18,7 +18,7 @@ const items = [
     key: "payment",
   },
   {
-    label: "Хичээл",
+    label: "Сургалт",
     to: "/dashboard/course",
     key: "course",
   },

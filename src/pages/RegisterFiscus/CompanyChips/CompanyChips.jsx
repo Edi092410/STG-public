@@ -8,9 +8,22 @@ export const CompanyChips = ({
   handleInputConfirm,
 }) => {
   const handleClose = (removedTag) => {
-    const newTags = tags.filter((tag) => tag !== removedTag);
-    console.log(newTags);
-    setTags(newTags);
+    // const newTags = tags.filter((tag) => tag !== removedTag);
+    // console.log(newTags);
+    // setTags(newTags);
+
+    // Find the index of the removed tag
+    const index = tags.names.indexOf(removedTag);
+
+    // Ensure the tag exists in the names array
+    if (index !== -1) {
+      // Create new arrays excluding the removed tag
+      const newIds = tags.ids.filter((_, idx) => idx !== index);
+      const newNames = tags.names.filter((_, idx) => idx !== index);
+
+      // Update the state with the new arrays
+      setTags({ ids: newIds, names: newNames });
+    }
   };
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
