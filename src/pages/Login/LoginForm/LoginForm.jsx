@@ -108,7 +108,7 @@ export const LoginForm = () => {
       </Form.Item>
       <div className="flex justify-around">
         <div className="cursor-pointer " onClick={() => navigate("/register")}>
-          Бүргүүлэх
+          Бүртгүүлэх
         </div>
         <div>Нууц үг мартсан</div>
       </div>
