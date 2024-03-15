@@ -1,8 +1,6 @@
-import { Dropdown, message, Menu } from "antd";
-import { ProfileIcon } from "../../../../assets/icons/ProfileIcon";
+import { message } from "antd";
 import { useAuth } from "../../../../utils/contexts/AuthProvider";
 import { HeaderNotification } from "../../../../components/forSite/HeaderNotification/HeaderNotification";
-import { Link } from "react-router-dom";
 import { ProfileMenu } from "../../../../components/forSite/ProfileMenu/ProfileMenu";
 
 export const AuthenticatedDropDown = ({ name, email }) => {

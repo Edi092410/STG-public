@@ -3,9 +3,9 @@ import { Breadcrumb1 } from "../../components/common/Breadcrumb1/Breadcrumb1";
 import { FeatureNews } from "./FeatureNews/FeatureNews";
 export const MainPage = () => {
   return (
-    <div>
+    <div className="">
       <Breadcrumb1 className="my-4" items={[{ title: "Нүүр" }]} />
-      <div className="flex flex-col items-center">
+      <div className="">
         <Slider />
       </div>
       <div className="mb-12">
