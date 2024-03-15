@@ -1,7 +1,7 @@
 import { Button, Form, Input, Select, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   GetDataService,
   PostDataService,
@@ -13,7 +13,6 @@ export const RegisterFrom = ({
   setErrorMsg,
   location,
   hash,
-  setHash,
   email,
 }) => {
   const [form] = Form.useForm();
@@ -175,8 +174,8 @@ export const RegisterFrom = ({
             ]}
           >
             <Select>
-              <Option value="1">Менежер</Option>
-              <Option value="0">Нягтлан</Option>
+              <Option value="1">Нягтлан</Option>
+              <Option value="0">Нярав</Option>
             </Select>
           </Form.Item>
         </>
@@ -190,15 +189,15 @@ export const RegisterFrom = ({
             message: "Нууц үгээ оруулна уу!",
           },
           {
-            min: 8,
-            message: "Нууц үг нь хамгийн багадаа 8 тэмдэгтээс тогтох ёстой!",
+            min: 6,
+            message: "Нууц үг нь хамгийн багадаа 6 тэмдэгтээс тогтох ёстой!",
           },
-          {
-            pattern:
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
-            message:
-              "Хамгийн багадаа нэг том үсэг, нэг тоо, нэг тусгай тэмдэгт агуулна!",
-          },
+          // {
+          //   pattern:
+          //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
+          //   message:
+          //     "Хамгийн багадаа нэг том үсэг, нэг тоо, нэг тусгай тэмдэгт агуулна!",
+          // },
         ]}
       >
         <Input.Password
@@ -228,7 +227,7 @@ export const RegisterFrom = ({
       <Form.Item
         wrapperCol={{
           offset: 6,
-          span: 16,
+          span: 24,
         }}
       >
         <Button htmlType="submit">Бүртгүүлэх</Button>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Button, Table, message } from "antd";
+import { Button, Table, message, Tooltip } from "antd";
 import { GetDataWithAuthorization } from "../../backend/axios/AxiosService2";
 import { SelectCompany } from "../../components/forSite/SelectCompany/SelectCompany";
 import { DateRangePicker } from "../../components/common/DateRangePicker/DateRangePicker";
@@ -101,9 +101,11 @@ export const OrderList = () => {
           setDates={setDates}
           className={`gap-x-4`}
         />
-        <Button onClick={() => console.log("create new request")}>
-          Шинэ захиалга үүсгэх
-        </Button>
+        <Tooltip title="Боловсруулалт хийгдэж байна.">
+          <Button onClick={() => console.log("create new request")}>
+            Шинэ захиалга үүсгэх
+          </Button>
+        </Tooltip>
       </div>
 
       <div className=" w-full rounded-lg shadow-boxThin">

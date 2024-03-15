@@ -9,7 +9,7 @@ export const SelectCompany = ({
     <Select
       style={{ width: 200 }}
       defaultValue={selectedCompany}
-      onChange={(e) => setSelectedCompany(e.target.value)}
+      onChange={(e) => setSelectedCompany(e)}
     >
       {companies &&
         companies.length > 0 &&

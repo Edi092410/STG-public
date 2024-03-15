@@ -3,52 +3,8 @@ import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useState } from "react";
 import { PostData } from "../../../backend/axios/AxiosAdmin";
 
-export const RegisterForm = () => {
-  const [form] = Form.useForm();
-  const [password, setPassword] = useState({ first: "", second: "" });
-  const [passwordError, setPasswordError] = useState(null);
-
-  const [loading, setLoading] = useState(false);
-
-  // Function to validate password
-  const validatePassword = () => {
-    if (password.first !== password.second) {
-      setPasswordError("Нууц үг таарахгүй байна!");
-      return false;
-    } else {
-      setPasswordError(null);
-      return true;
-    }
-  };
-
-  // Function to handle form submission
-  const handleSubmit = async (values) => {
-    setLoading(true);
-    try {
-      await form.validateFields(); // Validate all fields
-      // Password validation
-      const isPasswordValid = validatePassword();
-
-      if (!isPasswordValid) {
-        throw new Error("Password mismatch");
-      }
-
-      // Remove confirmPassword field from values
-      delete values.confirmPassword;
-
-      const response = await PostData("/register", values);
-
-      if (response.request.status === 200) {
-        token = response.data.data.token;
-        message.success(response?.data?.message);
-        // Send verification email
-        if (window.Email) {
-          window.Email.send({
-            SecureToken: "75e7c8f0-acc6-48cf-bfd8-d84e58225e1e",
-            To: values.email,
-            From: "m.erdenebayar.siticom@gmail.com",
-            Subject: "Цахим хаягаа баталгаажуулах",
-            Body: `<html>
+const emailHTML = ({ name, token }) => {
+  `<html>
             <head>
               <style>
               body {
@@ -110,7 +66,7 @@ export const RegisterForm = () => {
                   <h1>Санхүүгийн Тооцоолох Групп Компани</h1>
                 </div>
                 <div class="content">
-                  <p>Эрхэм хэрэглэгч ${values.name} танд энэ өдрийн мэнд хүргэе!</p>
+                  <p>Эрхэм хэрэглэгч ${name} танд энэ өдрийн мэнд хүргэе!</p>
                   <p>Та STG веб сайтын хэрэглэгчээр бүртгүүлсэн байна.</p>
                   <p>Танд хэрэглэгчийн цахим шуудангаа баталгаажуулах доорх холбоос-ыг илгээлээ. <a href="https://e-siticom.com/verification?token=${token}">Холбоос</a> дээр дарж өөрийгөө баталгаажуулна уу.</p>    
                 </div>
@@ -119,13 +75,69 @@ export const RegisterForm = () => {
                 </div>
               </div>
             </body>
-            </html>`,
-          }).then((msg) => message.success(msg));
-        } else if (response.request.status === 400) {
-          setPasswordError("Мэдээллээ шалгана уу!");
-        } else if (response.request.status === 500) {
-          setPasswordError("Сүлжээнд асуудал гарсан байна.");
+            </html>`;
+};
+
+export const RegisterForm = () => {
+  const [form] = Form.useForm();
+  const [password, setPassword] = useState({ first: "", second: "" });
+  const [passwordError, setPasswordError] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+
+  const [token, setToken] = useState("");
+
+  // Function to validate password
+  const validatePassword = () => {
+    if (password.first !== password.second) {
+      setPasswordError("Нууц үг таарахгүй байна!");
+      return false;
+    } else {
+      setPasswordError(null);
+      return true;
+    }
+  };
+
+  // Function to handle form submission
+  const handleSubmit = async (values) => {
+    setLoading(true);
+    try {
+      await form.validateFields(); // Validate all fields
+      // Password validation
+      const isPasswordValid = validatePassword();
+
+      if (!isPasswordValid) {
+        throw new Error("Password mismatch");
+      }
+
+      // Remove confirmPassword field from values
+      delete values.confirmPassword;
+
+      const response = await PostData("/register", values);
+
+      console.log("response", response);
+
+      if (response?.response?.data?.success === false)
+        setPasswordError(response?.response?.data?.data?.email[0]);
+
+      if (response?.data?.success === true) {
+        console.log("heerre");
+        setToken(response.data.data.token);
+        if (window.Email) {
+          console.log("sending email");
+          console.log("to:", values.email);
+          window.Email.send({
+            SecureToken: "75e7c8f0-acc6-48cf-bfd8-d84e58225e1e",
+            To: values.email,
+            From: "m.erdenebayar.siticom@gmail.com",
+            Subject: "Цахим хаягаа баталгаажуулах",
+            Body: emailHTML({ token: token, name: values.name }),
+          }).then((msg) => message.success("Та цахим шуудангаа  шалгана уу."));
+          // setValue(false);
         }
+        message.success("Амжилттай бүртгэгдлээ");
+      } else if (response.response.status === 500) {
+        setPasswordError("Сүлжээнд асуудал гарсан байна.");
       }
     } catch (error) {
       console.error("Validation failed:", error);
@@ -188,15 +200,15 @@ export const RegisterForm = () => {
             message: "Нууц үгээ оруулна уу!",
           },
           {
-            min: 8,
-            message: "Нууц үг нь хамгийн багадаа 8 тэмдэгтээс тогтох ёстой!",
+            min: 6,
+            message: "Нууц үг нь хамгийн багадаа 6 тэмдэгтээс тогтох ёстой!",
           },
-          {
-            pattern:
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
-            message:
-              "Хамгийн багадаа нэг том үсэг, нэг тоо, нэг тусгай тэмдэгт агуулна!",
-          },
+          // {
+          //   pattern:
+          //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
+          //   message:
+          //     "Хамгийн багадаа нэг том үсэг, нэг тоо, нэг тусгай тэмдэгт агуулна!",
+          // },
         ]}
       >
         <Input.Password
@@ -230,10 +242,10 @@ export const RegisterForm = () => {
         }}
       >
         <Button htmlType="submit">Бүртгүүлэх</Button>
+        <div className=" text-red-500 w-full flex justify-center my-4">
+          {passwordError}
+        </div>
       </Form.Item>
-      <div className=" text-red-500 w-full flex justify-center">
-        {passwordError}
-      </div>
     </Form>
   );
 };

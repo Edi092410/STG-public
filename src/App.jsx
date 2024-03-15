@@ -5,7 +5,7 @@ import { NotificationCountProvider } from "./utils/contexts/NotificationCountCon
 
 function App() {
   return (
-    <div className=" text-sm">
+    <div className=" text-base">
       <AuthProvider>
         <NotificationCountProvider>
           <ConfigProvider

@@ -102,22 +102,23 @@ export const HeaderNotification = () => {
             width: "400px",
           }}
         >
-          {list.slice(0, 10).map((prop, index) => {
-            return (
-              <div key={index} className="mb-3">
-                <NotificationElement
-                  text={prop?.message}
-                  seen={prop?.seen}
-                  date={prop?.createDate}
-                  number={prop?.number}
-                  id={prop?.id}
-                  customerId={prop?.customerId}
-                  reRender={onClick}
-                  RemoveOne={RemoveOne}
-                />
-              </div>
-            );
-          })}
+          {list &&
+            list.slice(0, 10).map((prop, index) => {
+              return (
+                <div key={index} className="mb-3">
+                  <NotificationElement
+                    text={prop?.message}
+                    seen={prop?.seen}
+                    date={prop?.createDate}
+                    number={prop?.number}
+                    id={prop?.id}
+                    customerId={prop?.customerId}
+                    reRender={onClick}
+                    RemoveOne={RemoveOne}
+                  />
+                </div>
+              );
+            })}
           <div className="flex justify-between text-white">
             <ViewAll />
             <MarkAll RemoveAll={RemoveAll} reRender={onClick} />

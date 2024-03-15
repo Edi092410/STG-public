@@ -16,8 +16,9 @@ export const Header1 = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        color: "white",
-        backgroundColor: "#1D3049",
+        color: "black",
+        // backgroundColor: "#1D3049",
+        backgroundColor: "#d1d5db",
       }}
       className=" just"
     >

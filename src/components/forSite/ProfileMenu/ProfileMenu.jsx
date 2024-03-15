@@ -1,33 +1,38 @@
-// import React from "react";
-// import { DropDown } from "../../common/DropDown/DropDown";
-// import { ProfileTrigger } from "./ProfileTrigger";
-// import { List } from "../../common/List/List";
-// import { Card } from "../../ui/Card/Card";
-// import { MenuData } from "./Data/MenuData";
-// import { Element } from "./Element";
-// import { ProfileIcon } from "../../../assets/icons/ProfileIcon";
-// export const ProfileMenu = ({ name, email }) => {
-//   return (
-//     <DropDown
-//       trigger={
-//         <div className="flex items-center">
-//           <ProfileTrigger name={"Test"} />
-//         </div>
-//       }
-//       location={"bottom center right"}
-//       margin={5}
-//     >
-//       <Card className={`shadow-thin bg-white text-black w-[200px] p-2 `}>
-//         <div className="flex">
-//           <ProfileIcon color={"#000000"} size={"40"} />
-//           <div>
-//             <div>{name}</div>
-//             <div>{email}</div>
-//           </div>
-//         </div>
-//         {/* <List lists={MenuData()} ListElement={Element} liclassName={""} /> */}
-//         <div className=" font-semibold cursor-pointer p-2">Системээс гарах</div>
-//       </Card>
-//     </DropDown>
-//   );
-// };
+import React from "react";
+import { Dropdown, Menu } from "antd";
+import { ProfileIcon } from "../../../assets/icons/ProfileIcon";
+import { Link } from "react-router-dom";
+import { LineChartOutlined, LogoutOutlined } from "@ant-design/icons";
+export const ProfileMenu = ({ name, email, handleLogout }) => {
+  return (
+    <Dropdown
+      overlay={
+        <Menu style={{ padding: 20 }}>
+          <div className="flex items-center">
+            <ProfileIcon size={40} color={"#000000"} />
+            <div>
+              <div>{name}</div>
+              <div>{email}</div>
+            </div>
+          </div>
+          <Menu.Item key={"dashboard"} icon={<LineChartOutlined />}>
+            <Link to={`/dashboard`}>Хянах самбар</Link>
+          </Menu.Item>
+          <Menu.Item
+            className=" font-semibold"
+            icon={<LogoutOutlined />}
+            key={`Log out`}
+            onClick={handleLogout}
+          >
+            Системээс гарах
+          </Menu.Item>
+        </Menu>
+      }
+    >
+      <div className="flex items-center cursor-pointer">
+        <ProfileIcon color={"#000"} size={25} />
+        <div className="ml-1">{name}</div>
+      </div>
+    </Dropdown>
+  );
+};

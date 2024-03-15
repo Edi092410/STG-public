@@ -1,5 +1,4 @@
 import { Slider } from "./Slider/Slider";
-import { Breadcrumb } from "antd";
 import { Breadcrumb1 } from "../../components/common/Breadcrumb1/Breadcrumb1";
 import { FeatureNews } from "./FeatureNews/FeatureNews";
 export const MainPage = () => {

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  // baseURL: "https://service2.stg.mn/api",
-  baseURL: "http://192.168.7.8:7110/api",
+  baseURL: "https://service2.stg.mn/api",
+  // baseURL: "http://192.168.7.8:7110/api",
 });
 
 export const GetDataService = async (endpoint) => {

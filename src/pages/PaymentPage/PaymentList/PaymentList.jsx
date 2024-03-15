@@ -73,14 +73,18 @@ export const PaymentList = ({ OrderData, loading }) => {
       title: "Төлөх дүн",
       dataIndex: "dtAmount",
       width: "10%",
-      render: (text) => <div>{text.toLocaleString("en-US")}₮</div>,
+      render: (text) => (
+        <div className="text-right">{text.toLocaleString("en-US")}₮</div>
+      ),
     },
     {
       key: "5",
       title: "Төлсөн",
       dataIndex: "ktAmount",
       width: "10%",
-      render: (text) => <div>{text.toLocaleString("en-US")}₮</div>,
+      render: (text) => (
+        <div className="text-right">{text.toLocaleString("en-US")}₮</div>
+      ),
     },
     {
       key: "6",
@@ -88,7 +92,7 @@ export const PaymentList = ({ OrderData, loading }) => {
       dataIndex: "dtAmount",
       width: "10%",
       render: (text, record) => (
-        <div>
+        <div className="text-right">
           {record.dtAmount - record.ktAmount > 0
             ? record.dtAmount - record.ktAmount.toLocaleString("en-US")
             : 0}
@@ -102,7 +106,7 @@ export const PaymentList = ({ OrderData, loading }) => {
       dataIndex: "ktAmount",
       width: "10%",
       render: (text, record) => (
-        <div>
+        <div className="text-right">
           {record.dtAmount - record.ktAmount > 0
             ? 0
             : (record.ktAmount - record.dtAmount).toLocaleString("en-US")}

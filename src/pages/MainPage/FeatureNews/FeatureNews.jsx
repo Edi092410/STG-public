@@ -1,32 +1,22 @@
 import { Card } from "antd";
+import { useEffect, useState } from "react";
+import { GetData } from "../../../backend/axios/AxiosAdmin";
 
 export const FeatureNews = () => {
-  const items = [
-    {
-      name: "cable",
-      src: "https://randomwordgenerator.com/img/picture-generator/57e8d7414a56ac14f1dc8460962e33791c3ad6e04e50744172297bd69745c2_640.jpg",
-      date: "2024-01-02",
-      title: "Cable management",
-      description:
-        "Cable management shuu hu. Ahiad ng cable management shuu hu. ",
-    },
-    {
-      name: "bulb",
-      src: "https://randomwordgenerator.com/img/picture-generator/54e7d4404f54ab14f1dc8460962e33791c3ad6e04e50744172277ed79145c0_640.jpg",
-      date: "2024-01-02",
-      title: "Cable management asdkfja;lsfdja;slfd asldkfj alsdkfj asldfj",
-      description:
-        "Cable management shuu hu. Ahiad ng cable management shuu hu. Cable management shuu hu. Ahiad ng cable management shuu hu.",
-    },
-    {
-      name: "yoga",
-      src: "https://randomwordgenerator.com/img/picture-generator/dance-3134828_640.jpg",
-      date: "2024-01-02",
-      title: "Cable management",
-      description:
-        "Cable management shuu hu. Ahiad ng cable management shuu hu. ",
-    },
-  ];
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await GetData("/articles");
+        setItems(response?.data?.data);
+      } catch (error) {
+        // setError(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="">
       <div className="w-full text-center font-bold text-2xl my-6">
@@ -39,14 +29,16 @@ export const FeatureNews = () => {
               style={{ width: 400 }}
               cover={
                 <img
-                  alt={item.name}
-                  src={item.src}
+                  alt={item.title}
+                  src={item.thumbnall}
                   className="h-[200px] w-full object-cover"
                 />
               }
               className=" hover:shadow-2xl transform duration-300 w-full"
             >
-              <div className=" font-bold text-lg text-center">{item.title}</div>
+              <div className=" font-semibold text-lg text-center">
+                {item.title}
+              </div>
             </Card>
           </div>
         ))}

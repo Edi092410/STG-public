@@ -8,10 +8,6 @@ export const CompanyChips = ({
   handleInputConfirm,
 }) => {
   const handleClose = (removedTag) => {
-    // const newTags = tags.filter((tag) => tag !== removedTag);
-    // console.log(newTags);
-    // setTags(newTags);
-
     // Find the index of the removed tag
     const index = tags.names.indexOf(removedTag);
 
@@ -32,12 +28,15 @@ export const CompanyChips = ({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <Input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          onBlur={handleInputConfirm}
-        />
+        <Tooltip title="Бүртгэлтэй регистрээ оруулна уу (Байгууллага эсвэл хувь хүн).">
+          <Input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            onBlur={handleInputConfirm}
+          />
+        </Tooltip>
+
         <Button onClick={handleInputConfirm}>Хайх</Button>
       </div>
 

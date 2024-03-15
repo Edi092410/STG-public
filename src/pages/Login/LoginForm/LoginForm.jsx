@@ -28,7 +28,9 @@ export const LoginForm = () => {
   const { setAuth } = useAuth();
   const [errMsg, setErrMsg] = useState("");
   const { state: locationState } = useLocation();
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (values) => {
+    setLoading(true);
     try {
       // Validate all fields
       await form.validateFields();
@@ -58,8 +60,15 @@ export const LoginForm = () => {
       } else if (response?.response?.request?.status === 500)
         setErrMsg("Сүлжээнд асуудал гарлаа");
     } catch (error) {
-      console.error("Validation failed:", error);
-      message.error("Ахин шалгана уу!.");
+      if (error.code === "ECONNABORTED") {
+        // Connection timeout occurred
+        setErrMsg("Холболт хугацаа дууссан");
+      } else {
+        // Other errors
+        message.error("Ахин шалгана уу!.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -80,15 +89,15 @@ export const LoginForm = () => {
             message: "Нууц үгээ оруулна уу!",
           },
           {
-            min: 8,
-            message: "Нууц үг нь хамгийн багадаа 8 тэмдэгтээс тогтох ёстой!",
+            min: 6,
+            message: "Нууц үг нь хамгийн багадаа 6 тэмдэгтээс тогтох ёстой!",
           },
-          {
-            pattern:
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
-            message:
-              "Хамгийн багадаа нэг том үсэг, нэг тоо, нэг тусгай тэмдэгт агуулна!",
-          },
+          // {
+          //   pattern:
+          //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
+          //   message:
+          //     "Хамгийн багадаа нэг том үсэг, нэг тоо, нэг тусгай тэмдэгт агуулна!",
+          // },
         ]}
       >
         <Input.Password
@@ -104,7 +113,9 @@ export const LoginForm = () => {
         }}
       >
         <div className="text-red-500">{errMsg}</div>
-        <Button htmlType="submit">Нэвтрэх</Button>
+        <Button htmlType="submit" loading={loading}>
+          Нэвтрэх
+        </Button>
       </Form.Item>
       <div className="flex justify-around">
         <div className="cursor-pointer " onClick={() => navigate("/register")}>
