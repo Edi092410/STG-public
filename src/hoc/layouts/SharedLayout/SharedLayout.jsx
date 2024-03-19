@@ -5,7 +5,7 @@ export const SharedLayout = () => {
   return (
     <div className="min-h-screen w-full grid grid-rows-[auto,1fr,auto]">
       <Header1 />
-      <div className="lg:mx-[10%]">
+      <div className="lg:mx-[10vw]">
         <Outlet />
       </div>
       <Footer1 />

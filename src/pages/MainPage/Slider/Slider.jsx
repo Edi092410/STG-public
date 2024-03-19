@@ -17,32 +17,18 @@ export const Slider = () => {
   }, []);
   return (
     // 100 x 30 baih yostoi
-    <Carousel autoplay className="w-[80vw] h-[25vw] bg-stg-color">
+    // Delgetsendee bagtahgu bsan uchraas urguniig 99.1vw urttai bolgov
+    <Carousel
+      autoplay
+      className="w-[99.1vw] lg:h-[25vw] h-[40vw]  rounded-lg lg:rounded-none bg-stg-color"
+    >
       {sliderItems.map((image, index) => (
         <img
           src={image.image}
           alt={image.id}
-          className="w-[80vw] h-[25vw] object-cover "
+          className="w-[99.1vw] lg:h-[25vw] h-[40vw]  rounded-lg lg:rounded-none  object-cover "
         />
       ))}
     </Carousel>
   );
 };
-
-{
-  /* <Carousel autoplay className="w-full h-full bg-stg-color">
-  {sliderItems.map((image, index) => (
-    <div className="relative h-[30vw] w-full">
-      <img
-        src={image.image}
-        alt={image.id}
-        className=" h-full w-full object-cover "
-      />
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-6 text-center text-sm sm:text-base md:text-lg lg:text-xl text-white">
-        <div className="font-bold">{image.title}</div>
-        <div className="">{image.introduction}</div>
-      </div>
-    </div>
-  ))}
-</Carousel>; */
-}

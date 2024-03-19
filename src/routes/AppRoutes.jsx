@@ -17,6 +17,7 @@ import { CourseWatch } from "../pages/CourseWatch/CourseWatch";
 import { PrivateRoute } from "./PrivateRoute";
 import { Knowledge } from "../pages/Knowledge/Knowledge";
 import { Information } from "../pages/Information/Information";
+import { ChangePassword } from "../pages/ChangePassword/ChangePassword";
 
 export const AppRoutes = () => {
   return (
@@ -37,7 +38,7 @@ export const AppRoutes = () => {
         <Route path="information" element={<Information />} />
         <Route path="knowledge" element={<Knowledge />} />
         <Route path="login" element={<Login />} />
-        {/* <Route path="changePassword" element={<ChangePassword />} /> */}
+        <Route path="changePassword" element={<ChangePassword />} />
         <Route path="forgetPassword" element={<ForgetPassword />} />
         <Route path="register" element={<Register />} />
         <Route path="registration" element={<RegisterFiscus />} />

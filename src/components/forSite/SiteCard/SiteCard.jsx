@@ -5,7 +5,7 @@ export const SiteCard = ({ children, location, text }) => {
       location={location}
       text={text}
       className={
-        "w-full rounded-lg border border-slate-200 mt-4 pl-10 py-10 pr-10 md:pr-0 lg:min-w-[500px] "
+        "w-full rounded-lg border border-slate-200 mt-4 p-10 lg:w-[400px] "
       }
       textClassName={`w-full font-bold text-[18px]`}
     >

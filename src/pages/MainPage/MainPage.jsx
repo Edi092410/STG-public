@@ -5,7 +5,7 @@ export const MainPage = () => {
   return (
     <div className="">
       <Breadcrumb1 className="my-4" items={[{ title: "Нүүр" }]} />
-      <div className="">
+      <div className=" lg:-mx-[10vw] flex justify-center">
         <Slider />
       </div>
       <div className="mb-12">

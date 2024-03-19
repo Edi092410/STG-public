@@ -1,27 +1,9 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Divider, Form, Input, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PostDataService } from "../../../backend/axios/AxiosService2";
 import { useAuth } from "../../../utils/contexts/AuthProvider";
 import { useState } from "react";
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 6,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 14,
-    },
-  },
-};
 export const LoginForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -29,6 +11,7 @@ export const LoginForm = () => {
   const [errMsg, setErrMsg] = useState("");
   const { state: locationState } = useLocation();
   const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (values) => {
     setLoading(true);
     try {
@@ -72,7 +55,18 @@ export const LoginForm = () => {
     }
   };
   return (
-    <Form {...formItemLayout} form={form} onFinish={(e) => handleSubmit(e)}>
+    <Form layout="vertical" form={form} onFinish={(e) => handleSubmit(e)}>
+      <h2 className=" text-lg font-semibold">Нэвтрэх</h2>
+      <div className=" text-gray-400">
+        Бүртгэл хийгдээгүй бол{" "}
+        <span
+          className=" text-stg-color cursor-pointer underline"
+          onClick={() => navigate("/register")}
+        >
+          Бүртгүүлэх
+        </span>
+      </div>
+      <Divider />
       <Form.Item
         label="Цахим шуудан"
         name={"email"}
@@ -99,30 +93,21 @@ export const LoginForm = () => {
           //     "Хамгийн багадаа нэг том үсэг, нэг тоо, нэг тусгай тэмдэгт агуулна!",
           // },
         ]}
+        style={{ width: "100%" }}
       >
         <Input.Password
           iconRender={(visible) =>
             visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
           }
         />
+        <div className=" underline">Нууц үг мартсан</div>
       </Form.Item>
-      <Form.Item
-        wrapperCol={{
-          offset: 6,
-          span: 16,
-        }}
-      >
+      <Form.Item>
         <div className="text-red-500">{errMsg}</div>
-        <Button htmlType="submit" loading={loading}>
+        <Button htmlType="submit" loading={loading} className=" w-full">
           Нэвтрэх
         </Button>
       </Form.Item>
-      <div className="flex justify-around">
-        <div className="cursor-pointer " onClick={() => navigate("/register")}>
-          Бүртгүүлэх
-        </div>
-        <div>Нууц үг мартсан</div>
-      </div>
     </Form>
   );
 };

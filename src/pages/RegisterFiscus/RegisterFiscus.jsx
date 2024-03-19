@@ -40,8 +40,8 @@ export const RegisterFiscus = () => {
   }, [location.search]);
   return (
     <>
-      {!isValid ? (
-        <SiteTemplate location={"top"} text={"Бүртгүүлэх"}>
+      {isValid ? (
+        <SiteTemplate>
           <RegisterFrom
             location={location}
             hash={hash}

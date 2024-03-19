@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select, message } from "antd";
+import { Button, Divider, Form, Input, Select, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -83,26 +83,10 @@ export const RegisterFrom = ({
       message.error("Ахин шалгана уу!.");
     }
   };
-  const formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 6,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 14,
-      },
-    },
-  };
   return (
-    <Form {...formItemLayout} form={form} onFinish={(e) => handleSubmit(e)}>
+    <Form layout="vertical" form={form} onFinish={(e) => handleSubmit(e)}>
+      <h2 className=" text-lg font-semibold">Бүртгүүлэх</h2>
+      <Divider />
       <Form.Item
         label="Нэр"
         name={"Username"}
@@ -224,12 +208,7 @@ export const RegisterFrom = ({
           onChange={(e) => setPassword({ ...password, second: e.target.value })}
         />
       </Form.Item>
-      <Form.Item
-        wrapperCol={{
-          offset: 6,
-          span: 24,
-        }}
-      >
+      <Form.Item>
         <Button htmlType="submit">Бүртгүүлэх</Button>
       </Form.Item>
       <div className=" text-red-500 w-full flex justify-center">{errorMsg}</div>

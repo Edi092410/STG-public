@@ -1,4 +1,4 @@
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, message, Divider } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useState } from "react";
 import { PostData } from "../../../backend/axios/AxiosAdmin";
@@ -146,26 +146,10 @@ export const RegisterForm = () => {
       setLoading(false);
     }
   };
-  const formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 6,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 14,
-      },
-    },
-  };
   return (
-    <Form {...formItemLayout} form={form} onFinish={(e) => handleSubmit(e)}>
+    <Form layout="vertical" form={form} onFinish={(e) => handleSubmit(e)}>
+      <h2 className=" text-lg font-semibold">Бүртгүүлэх</h2>
+      <Divider />
       <Form.Item
         label="Нэр"
         name={"name"}
@@ -235,13 +219,10 @@ export const RegisterForm = () => {
           onChange={(e) => setPassword({ ...password, first: e.target.value })}
         />
       </Form.Item>
-      <Form.Item
-        wrapperCol={{
-          offset: 6,
-          span: 16,
-        }}
-      >
-        <Button htmlType="submit">Бүртгүүлэх</Button>
+      <Form.Item>
+        <Button htmlType="submit" className="w-full" loading={loading}>
+          Бүртгүүлэх
+        </Button>
         <div className=" text-red-500 w-full flex justify-center my-4">
           {passwordError}
         </div>
