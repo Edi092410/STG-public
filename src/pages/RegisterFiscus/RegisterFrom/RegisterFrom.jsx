@@ -57,7 +57,7 @@ export const RegisterFrom = ({
   const handleSubmit = async (values) => {
     console.log("value", values);
     try {
-      await form.validateFields(); // Validate all fields
+      await form.validateFields(); // Validate all fieldsч
       // Password validation
       const isPasswordValid = validatePassword();
       if (!isPasswordValid) {
@@ -71,7 +71,9 @@ export const RegisterFrom = ({
       const response = await PostDataService("/users/register", values);
       console.log("response", response);
       if (response?.response?.data?.success) {
-        message.success("Амжилттай бүртгүүллээ!");
+        message.success(
+          "Амжилттай бүртгэгдлээ. Баталгаажуулалт дуустал түр хүлээнэ үү."
+        );
         navigate("/");
       } else if (response?.response?.status === 400) {
         setErrorMsg("Мэдээллээ шалгана уу!");

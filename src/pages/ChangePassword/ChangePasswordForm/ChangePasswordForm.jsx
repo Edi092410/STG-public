@@ -37,7 +37,7 @@ export const ChangePasswordForm = () => {
       <h2 className=" text-lg font-semibold">Нууц үг солих</h2>
       <Divider />
       <Form.Item
-        label="Нууц үг"
+        label="Системээс өгсөн нууц үг"
         name={"password"}
         rules={[
           {
@@ -58,7 +58,7 @@ export const ChangePasswordForm = () => {
         />
       </Form.Item>
       <Form.Item
-        label="Нууц үг давтах"
+        label="Шинэ нууц үг"
         name={"newPassword"}
         rules={[
           {
@@ -81,7 +81,7 @@ export const ChangePasswordForm = () => {
       <Form.Item>
         <div className="text-red-500">{err}</div>
         <Button htmlType="submit" loading={loading} className=" w-full">
-          Нууц үг авах
+          Нууц үг солих
         </Button>
       </Form.Item>
     </Form>

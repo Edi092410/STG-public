@@ -93,15 +93,16 @@ export const LoginForm = () => {
           //     "Хамгийн багадаа нэг том үсэг, нэг тоо, нэг тусгай тэмдэгт агуулна!",
           // },
         ]}
-        style={{ width: "100%" }}
       >
         <Input.Password
           iconRender={(visible) =>
             visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
           }
         />
-        <div className=" underline">Нууц үг мартсан</div>
       </Form.Item>
+      <div className=" underline" onClick={() => navigate("/forgetpassword")}>
+        Нууц үг мартсан
+      </div>
       <Form.Item>
         <div className="text-red-500">{errMsg}</div>
         <Button htmlType="submit" loading={loading} className=" w-full">

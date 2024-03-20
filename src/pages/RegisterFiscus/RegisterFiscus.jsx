@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { RegisterFrom } from "./RegisterFrom/RegisterFrom";
 import { SiteTemplate } from "../../components/forSite/SiteTemplate/SiteTemplate";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button, Empty } from "antd";
+import { Button, Empty, message } from "antd";
 import { GetDataService } from "../../backend/axios/AxiosService2";
 export const RegisterFiscus = () => {
   const navigate = useNavigate();
@@ -22,8 +22,9 @@ export const RegisterFiscus = () => {
             )}&hash=${searchParams.get("hash")}`
           );
           console.log("check invitation", response);
-          if (response?.status === 200) setIsValid(true);
-          else if (
+          if (response?.status === 200) {
+            setIsValid(true);
+          } else if (
             response?.response?.status === 404 &&
             response?.response?.data?.success === false
           ) {
